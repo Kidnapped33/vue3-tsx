@@ -1,16 +1,11 @@
 import { createApp } from "vue";
 import { App } from "./App";
-import { One } from "./views/One";
-import { Two } from "./views/Two";
 import { createRouter, createWebHashHistory } from "vue-router";
-
-const routes = [
-  { path: "/", component: One },
-  { path: "/two", component: Two },
-];
+import { routes } from "./config/routes";
+import { history } from "./shared/history";
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history, //  history:history 的缩写
   routes, // `routes: routes` 的缩写
 });
 

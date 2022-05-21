@@ -1,0 +1,41 @@
+.wapper {
+  flex-grow: 1;
+  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  
+  > .card {
+    // height: 600px;
+    flex-grow: 1;
+    background-color: var(--welcome-card-bg);
+    border-radius: 8px;
+    padding: 16px;
+    margin: 0 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    > .pig {
+      width: 128px;
+    }
+
+    > h2 {
+      margin-top: 40px;
+    }
+  }
+  > .actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 16px;
+    padding: 24px 0;
+    font-size: 32px;
+    color: var(--welcome-text);
+
+    > .fake {
+      visibility: hidden;
+    }
+  }
+}

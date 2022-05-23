@@ -6,6 +6,7 @@ import { Fouth } from "../components/welcome/Fouth";
 import { Welcome } from "../views/Welcome";
 
 export const routes: RouteRecordRaw[] = [
+  { path: "/",redirect:"/welcome/first"},
   {
     path: "/welcome",
     component: Welcome,

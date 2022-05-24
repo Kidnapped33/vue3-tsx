@@ -1,9 +1,14 @@
 .wapper {
-  height: 100vh;
+  // border:1px solid blue;
+  height: calc(100vh - var(--welcome-nav-height));
   display: flex;
   flex-direction: column;
-  //线性背景色
-  background-image: linear-gradient(to bottom, #5d33be 0%, #8f4cd7 100%);
+  background-image: linear-gradient(
+    to bottom,
+    var(--welcome-bg-start) 0%,
+    var(--welcome-bg-end) 100%
+  );
+   margin-bottom: var(--welcome-nav-height);
 
   > header {
     flex-shrink: 0;
@@ -12,7 +17,7 @@
     justify-content: center;
     align-items: center;
     padding-top: 66px;
-    color: #D4D4EE;
+    color: #d4d4ee;
 
     > img {
       width: 50px;

@@ -9,7 +9,8 @@ export const First = defineComponent({
       <div class={s.wapper}>
         <div class={s.card}>
           <img class={s.pig} src={pig} />
-          <h2>会赚钱<br/>还要会省钱</h2>
+          {/* <h2>会赚钱<br/>还要会省钱</h2> */}
+          <h2>123<br/>测试用例</h2>
         </div>
         <div class={s.actions}>
           <RouterLink to="" class={s.fake}>跳过</RouterLink>

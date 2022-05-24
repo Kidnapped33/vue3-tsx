@@ -9,7 +9,7 @@ export const Welcome = defineComponent({
       <div class={s.wapper}>
         <header>
           <img src={logo} />
-          <h3>西瓜记账</h3>
+          <h3>测试用例</h3>
         </header>
         <main class={s.main}>
           <RouterView />

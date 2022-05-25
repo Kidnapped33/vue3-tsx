@@ -1,22 +1,18 @@
 import { defineComponent } from "vue";
-import s from "./First.module.scss";
-import pig from "../../assets/icons/watermelon.svg";
+import s from "./Welcome.module.scss";
 import { RouterLink } from "vue-router";
+
+import { WelcomeWapper } from "./WelcomeWapper";
+import pig from "../../assets/icons/watermelon.svg";
 
 export const Fouth = defineComponent({
   setup() {
-    return () => (
-      <div class={s.wapper}>
-        <div class={s.card}>
-          <img class={s.pig} src={pig} />
-          <h2>第四只<br/>还要会省钱</h2>
-        </div>
-        <div class={s.actions}>
-          <RouterLink to="" class={s.fake}>跳过</RouterLink>
-          <RouterLink to="/start">下一页</RouterLink>
-          <RouterLink to="/start">跳过</RouterLink>
-        </div>
-      </div>
-    );
+    return () => <WelcomeWapper>
+      {{
+         icon : () => <img class={s.icon} src={pig} />,
+         title : () =>  <h2>第四只<br/>测试用例</h2>,
+         nextPage : () => <RouterLink to="/welcome/start">下一页</RouterLink>
+      }}
+    </WelcomeWapper>
   },
 });

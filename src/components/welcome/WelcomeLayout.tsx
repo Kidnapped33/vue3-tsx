@@ -2,7 +2,7 @@ import { defineComponent } from "vue";
 import s from "./Welcome.module.scss";
 import { RouterLink } from "vue-router";
 
-export const WelcomeWapper = defineComponent({
+export const WelcomeLayout = defineComponent({
   setup(props,{ slots }) {
     return () => (
         <div class={s.wapper}>

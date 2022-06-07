@@ -1,18 +1,12 @@
-import { defineComponent } from "vue";
-import { RouterLink } from "vue-router";
 import s from "./Welcome.module.scss";
-
-import { WelcomeLayout } from "./WelcomeLayout";
+import { FunctionalComponent } from 'vue';
 import pig from "../../assets/icons/watermelon.svg";
 
-export const First = defineComponent({
-  setup() {
+export const First: FunctionalComponent = () => {
+  return <div class={s.card}>
+    <img src={pig} />
+    <h2>会挣钱<br />还会省钱</h2>
+  </div>
+}
 
-    const slots = {
-        icon : () => <img class={s.icon} src={pig} />,
-        title : () =>  <h2>123<br/>测试用例</h2>,
-        nextPage : () => <RouterLink to="/welcome/second">下一页</RouterLink>
-    }
-    return () => <WelcomeLayout v-slots={slots}/>
-  },
-});
+First.displayName = 'First'

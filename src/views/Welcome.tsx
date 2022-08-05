@@ -20,7 +20,7 @@ import { RouteLocationNormalizedLoaded, RouterView } from "vue-router";
 
 export const Welcome = defineComponent({
   setup: (props, context) => {
-    const main = ref<HTMLElement | null>(null);
+    const main = ref<HTMLElement>();
     const { swiping, direction } = useSwipe(main);
     watchEffect(() => {
       console.log('watchEffect===================',swiping.value, direction.value);

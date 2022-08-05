@@ -5,9 +5,9 @@ type Point = {
   y: number;
 }
 
-export const useSwipe = (element: Ref<HTMLElement | null>) => {
-  const start = ref<Point | null>(null)
-  const end = ref<Point | null>(null)
+export const useSwipe = (element: Ref<HTMLElement | undefined>) => {
+  const start = ref<Point>()
+  const end = ref<Point>()
   const swiping = ref(false)
   const distance = computed(() => {
     if (!start.value || !end.value) { return null }
@@ -17,6 +17,7 @@ export const useSwipe = (element: Ref<HTMLElement | null>) => {
     }
   })
   const direction = computed(() => {
+    if (!swiping.value) { return '' }
     if (!distance.value) { return '' }
     const { x, y } = distance.value
     if (Math.abs(x) > Math.abs(y)) {
@@ -34,7 +35,9 @@ export const useSwipe = (element: Ref<HTMLElement | null>) => {
     end.value = { x: e.touches[0].screenX, y: e.touches[0].screenY, }
   }
   const onEnd = (e: TouchEvent) => {
-    swiping.value = false
+      swiping.value = false
+    //   start.value= null;
+    //   end.value= null;
   }
 
   onMounted(() => {

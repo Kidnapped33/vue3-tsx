@@ -6,10 +6,6 @@ export const Icon = defineComponent({
     name: { type: String, required: true },
   },
   setup: (props, context) => {
-    return () => (
-      <div>
-        <img class={s.icon} src={props.name}></img>
-      </div>
-    );
+    return () => <img src={props.name}></img>;
   },
 });

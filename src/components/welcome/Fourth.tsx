@@ -1,7 +1,7 @@
 import s from "./Welcome.module.scss";
 import { FunctionalComponent } from 'vue';
 
-export const Forth:FunctionalComponent = () => (
+export const Fourth:FunctionalComponent = () => (
   <div class={s.card}>
     <svg>
       <use xlinkHref='#watermelon'></use>
@@ -10,4 +10,4 @@ export const Forth:FunctionalComponent = () => (
   </div>
 )
 
-Forth.displayName = 'Forth'
+Fourth.displayName = 'Fourth'

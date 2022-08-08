@@ -15,7 +15,6 @@ import s from "./Welcome.module.scss";
 // import { useSwipe } from "@vueuse/core";
 import { useSwipe } from "../hooks/useSwipe";
 import { defineComponent, ref, Transition, VNode, watchEffect } from "vue";
-import logo from "../assets/icons/watermelon.svg";
 import { RouteLocationNormalizedLoaded, RouterView } from "vue-router";
 
 export const Welcome = defineComponent({
@@ -28,7 +27,9 @@ export const Welcome = defineComponent({
     return () => (
       <div class={s.wapper}>
         <header>
-          <img src={logo} />
+          <svg>
+            <use xlinkHref='#watermelon'></use>
+          </svg>
           <h3>测试用例</h3>
         </header>
         <main class={s.main} ref={main}>

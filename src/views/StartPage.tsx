@@ -1,6 +1,8 @@
 import { defineComponent } from "vue";
 import { Button } from "../shared/Button";
+import { Center } from "../shared/Center";
 import { FloatButton } from "../shared/FloatButton";
+import { Icon } from "../shared/Icon";
 import s from "./StartPage.module.scss";
 
 export const StartPage = defineComponent({
@@ -9,11 +11,17 @@ export const StartPage = defineComponent({
       console.log("点击了onClick");
     };
     return () => (
-      <div class={s.button_wapper}>
-        <Button class={s.button} onClick={onClick}>
-          按钮
-        </Button>
-        <FloatButton iconName="add"/>
+      <div>
+        <nav>menu</nav>
+        <Center class={s.img_wrapper}>
+          <Icon name="watermelon" class={s.img}/>
+        </Center>
+        <div class={s.button_wrapper}>
+          <Button class={s.button} onClick={onClick}>
+            按钮
+          </Button>
+        </div>
+        <FloatButton iconName="add" />
       </div>
     );
   },

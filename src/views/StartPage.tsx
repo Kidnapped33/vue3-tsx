@@ -1,35 +1,37 @@
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import { Button } from "../shared/Button";
 import { Center } from "../shared/Center";
 import { FloatButton } from "../shared/FloatButton";
 import { Icon } from "../shared/Icon";
 import { Navbar } from "../shared/Navbar";
+import { Overlay } from "../shared/Overlay";
 import s from "./StartPage.module.scss";
 
 export const StartPage = defineComponent({
   setup: (props, context) => {
-    const onClick = () => {
-      console.log("点击了onClick");
+    const overlayVisible = ref<boolean>(false);
+    const onClickMenu = () => {
+      overlayVisible.value = !overlayVisible.value;
+      console.log("点击了onClickMenu",overlayVisible.value);
     };
     return () => (
       <div>
         <Navbar>
-          {
-            { 
-              default: "西瓜", 
-              icon: <Icon name="menu" class={s.navIcon}/> 
-            }
-          }
+          {{
+            default: () => "西瓜",
+            icon: () => <Icon name="menu" class={s.navIcon} onClick={onClickMenu} />,
+          }}
         </Navbar>
         <Center class={s.img_wrapper}>
-          <Icon name="watermelon" class={s.img}/>
+          <Icon name="watermelon" class={s.img} />
         </Center>
         <div class={s.button_wrapper}>
-          <Button class={s.button} onClick={onClick}>
+          <Button class={s.button}>
             开始
           </Button>
         </div>
         <FloatButton iconName="add" />
+        {overlayVisible.value && <Overlay class={s.xxx}></Overlay>}
       </div>
     );
   },

@@ -1,6 +1,6 @@
 .navbar {
   display: flex;
-//   justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   background-image: linear-gradient(
     to bottom,
@@ -9,15 +9,23 @@
   );
   color: var(--navbar-text);
   fill: var(--navbar-text);
+  padding: 40px 16px 12px;
+}
 
-  .title{
-      font-size: var(--navbar-fontSize);
-      font-weight: bold;
+.icon_wrapper {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  > * {
+    max-width: 100%;
+    max-height: 100%;
   }
+}
 
-  .icon {
-    width: 28px;
-    height: 28px;
-  }
-
+.title_wrapper {
+  font-size: var(--navbar-fontSize);
+  font-weight: bold;
+  margin-left: 16px;
 }

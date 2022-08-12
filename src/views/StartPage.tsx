@@ -16,8 +16,8 @@ export const StartPage = defineComponent({
         <Navbar>
           {
             { 
-              default: (_class:string) => <div class={_class}>{"西瓜"}</div>, 
-              icon:(_class:string)=> <Icon name="menu" class={_class}/> 
+              default: "西瓜", 
+              icon: <Icon name="menu" class={s.navIcon}/> 
             }
           }
         </Navbar>
@@ -26,7 +26,7 @@ export const StartPage = defineComponent({
         </Center>
         <div class={s.button_wrapper}>
           <Button class={s.button} onClick={onClick}>
-            按钮
+            开始
           </Button>
         </div>
         <FloatButton iconName="add" />

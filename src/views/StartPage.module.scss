@@ -6,13 +6,15 @@
 }
 
 .img {
+  border: 1px solid red;
   width: 128px;
   height: 128px;
   &_wrapper {
-    padding: 160px 0;
+    padding: 120px 0;
   }
 }
 
-.xxx {
-  border: 1px solid red;
+.navIcon {
+  width: 32px;
+  height: 32px;
 }

@@ -10,10 +10,10 @@ export const Navbar = defineComponent({
     return () => (
       <div class={s.navbar}>
         <span class={s.icon_wrapper}>
-          { slots.icon?.(s.icon) }
+          { slots.icon?.() }
         </span>
         <span class={s.title_wrapper}>
-          { slots.default?.(s.title) }
+          { slots.default?.() }
         </span>
       </div>
     )

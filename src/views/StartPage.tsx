@@ -13,7 +13,14 @@ export const StartPage = defineComponent({
     };
     return () => (
       <div>
-        <Navbar>123</Navbar>
+        <Navbar>
+          {
+            { 
+              default: (_class:string) => <div class={_class}>{"西瓜"}</div>, 
+              icon:(_class:string)=> <Icon name="menu" class={_class}/> 
+            }
+          }
+        </Navbar>
         <Center class={s.img_wrapper}>
           <Icon name="watermelon" class={s.img}/>
         </Center>

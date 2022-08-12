@@ -22,7 +22,7 @@ export const Welcome = defineComponent({
     const main = ref<HTMLElement>();
     const { swiping, direction } = useSwipe(main);
     watchEffect(() => {
-      console.log('watchEffect===================',swiping.value, direction.value);
+      // console.log('watchEffect===================',swiping.value, direction.value);
     });
     return () => (
       <div class={s.wapper}>

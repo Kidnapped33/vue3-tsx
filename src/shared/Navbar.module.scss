@@ -1,6 +1,23 @@
 .navbar {
-    height: 100px;
-    background: var(--navbar-bg);
-    font-size: 40px;
-    color: white;
+  display: flex;
+//   justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(
+    to bottom,
+    var(--navbar-bg-start) 0%,
+    var(--navbar-bg-end) 100%
+  );
+  color: var(--navbar-text);
+  fill: var(--navbar-text);
+
+  .title{
+      font-size: var(--navbar-fontSize);
+      font-weight: bold;
+  }
+
+  .icon {
+    width: 28px;
+    height: 28px;
+  }
+
 }

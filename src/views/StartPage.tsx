@@ -12,7 +12,6 @@ export const StartPage = defineComponent({
     const overlayVisible = ref<boolean>(false);
     const onClickMenu = () => {
       overlayVisible.value = !overlayVisible.value;
-      console.log("点击了onClickMenu",overlayVisible.value);
     };
     return () => (
       <div>
@@ -31,7 +30,7 @@ export const StartPage = defineComponent({
           </Button>
         </div>
         <FloatButton iconName="add" />
-        {overlayVisible.value && <Overlay class={s.xxx}></Overlay>}
+        {overlayVisible.value && <Overlay  onClose={() => overlayVisible.value = false}></Overlay>}
       </div>
     );
   },

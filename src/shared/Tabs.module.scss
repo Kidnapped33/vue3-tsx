@@ -1,0 +1,21 @@
+.tabs {
+
+  &_nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+
+    > li {
+      width: 100%;
+      text-align: center;
+      padding: 10px 0;
+
+      &.selected {
+        background: rgb(94, 94, 220);
+        font-size: 20px;
+        color: white;
+      }
+    }
+  }
+}

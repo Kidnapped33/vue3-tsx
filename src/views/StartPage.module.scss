@@ -6,7 +6,6 @@
 }
 
 .img {
-  border: 1px solid red;
   width: 128px;
   height: 128px;
   &_wrapper {
@@ -17,11 +16,4 @@
 .navIcon {
   width: 32px;
   height: 32px;
-}
-
-.xxx {
-  position: absolute;
-  left: 0;
-  top: 80px;
-  background-color: white;
 }

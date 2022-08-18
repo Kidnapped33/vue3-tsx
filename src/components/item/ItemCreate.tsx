@@ -3,6 +3,7 @@ import { RouterLink, RouterView } from "vue-router";
 import { MainLayout } from "../../layouts/MainLayout";
 import { Icon } from "../../shared/Icon";
 import { Tab, Tabs } from "../../shared/Tabs";
+import { InputPad } from "./InputPad";
 import s from "./ItemCreate.module.scss";
 export const ItemCreate = defineComponent({
   props: {
@@ -21,7 +22,7 @@ export const ItemCreate = defineComponent({
                 <Icon name="left" class={s.navIcon}></Icon>
               </RouterLink>
             ),
-            title: () => "记一笔",
+            title: () => "记一笔", 
             default: () => (
               <>
                 <Tabs
@@ -34,6 +35,9 @@ export const ItemCreate = defineComponent({
                     icon 列表2
                   </Tab>
                 </Tabs>
+                <div class={s.inputPad_wrapper}>
+                  <InputPad />
+                </div>
               </>
             ),
           }}

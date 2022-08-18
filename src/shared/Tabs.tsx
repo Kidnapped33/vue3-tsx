@@ -15,11 +15,9 @@ export const Tabs = defineComponent({
   setup: (props, context) => {
     return () => {
       const tabs = context.slots.default?.();
-      console.log("tabs", tabs);
       if (!tabs) return () => null;
       for (let i = 0; i < tabs.length; i++) {
         if (tabs[i].type !== Tab) {
-          console.log("xxxxxxx", tabs[i].type);
           throw new Error("<Tabs> only accepts <Tab> as children");
         }
       }

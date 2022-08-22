@@ -1,5 +1,5 @@
 import { defineComponent, PropType } from "vue";
-export type IconName = "add" | "watermelon" | "menu" | "charts" | "export" | "notify" | "left";
+export type IconName = "add" | "watermelon" | "menu" | "charts" | "export" | "notify" | "left" | "notes" | "date";
 export const Icon = defineComponent({
   props: {
     name: {

@@ -1,7 +1,6 @@
 export const time = (date = new Date()) => {
   const api = {
     format: (pattern = "YYYY-MM-DD") => {
-      // 目前支持的格式有 YYYY MM DD HH mm ss SSS
       const year = date.getFullYear();
       const month = date.getMonth() + 1;
       const day = date.getDate();

@@ -3,7 +3,7 @@ import { Icon } from "../../shared/Icon";
 import s from "./InputPad.module.scss";
 import { time } from "../../shared/time";
 import { DatetimePicker, Popup } from "vant";
-// import { DatetimePicker  } from 'vant';
+import 'vant/lib/index.css';
 
 export const InputPad = defineComponent({
   props: {
@@ -34,18 +34,15 @@ export const InputPad = defineComponent({
       { text: "提交", onClick: () => {} },
     ];
     const refShowPop = ref(false);
+    // const setDate = (date: Date) => {
+    //   refShowPop.value = false;
+    //   refDate.value = date
+    // }
+    // const hideDatePicker = () => {
+    //   refShowPop.value = false;
+    // }
     return () => (
       <>
-        <div>
-          <span onClick={() => (refShowPop.value = true)}>test</span>
-          <Popup position="bottom" v-model:show={refShowPop.value}>
-            {/* <DatetimePicker
-                  v-model:value={refDate.value}
-                  type="date"
-                  title="选择年月日"
-                /> */}
-          </Popup>
-        </div>
         <div class={s.dateAndAmount}>
           <span class={s.date}>
             <Icon name="date" class={s.icon} />
@@ -56,16 +53,11 @@ export const InputPad = defineComponent({
                 {time(refDate.value).format()}
               </span>
               <Popup position="bottom" v-model:show={refShowPop.value}>
-                {/* <DatetimePicker
-                v-model={refDate.value}
-                type="date"
-                title="选择年月日"
-                onConfirm={() => (refShowPop.value = false)}
-              /> */}
                 <DatetimePicker
                   v-model:value={refDate.value}
                   type="date"
                   title="选择年月日"
+                  onConfirm={() => refShowPop.value = false} 
                 />
               </Popup>
             </span>

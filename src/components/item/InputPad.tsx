@@ -17,6 +17,7 @@ export const InputPad = defineComponent({
     // const refDate = ref<Date>(new Date())
     const appendText = (n:number | string) => refAmount.value += n.toString();
     const buttons = [
+      { text: '1', onClick: () => { appendText(1) } },
       { text: '2', onClick: () => { appendText(2) } },
       { text: '3', onClick: () => { appendText(3) } },
       { text: '4', onClick: () => { appendText(4) } },

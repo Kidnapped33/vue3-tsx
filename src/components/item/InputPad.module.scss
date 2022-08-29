@@ -27,7 +27,6 @@
 }
 
 .buttons {
-  // display: flex;
   display: grid;
   grid-template-areas:
     "n1 n2 n3 d"
@@ -42,27 +41,6 @@
   border-top: 1px solid var(--button-border-color);
   > button {
     border: none;
-    // border-right: 1px solid var(--button-border-color);
-    // border-bottom: 1px solid var(--button-border-color);
-    // width: 33.3333%;
-    // height: 48px;
-    // background: transparent;
-    // color: black;
-    // &:nth-child(3n){
-    //     border-right: none;
-    // }
-
-    // &:nth-child(12){
-    //     border-right: 1px solid var(--button-border-color);
-    // }
-
-    // &:nth-child(13){
-    //     border-right: none;
-    // }
-
-    // &:nth-child(10),
-    // &:nth-child(11),
-    // &:nth-child(12),
     background: var(--button-bg);
     &:nth-child(1) {
       grid-area: n1;
@@ -101,8 +79,6 @@
       grid-area: d;
     }
     &:nth-child(13) {
-      // width: 25%;
-      // border-bottom:none;
       grid-area: s;
       background: var(--button-bg-important);
       color: var(--button-text-important);

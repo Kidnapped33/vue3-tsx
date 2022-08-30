@@ -123,7 +123,7 @@ export const InputPad = defineComponent({
       {
         text: "清空",
         onClick: () => {
-          console.log("清空");
+         refAmount.value = "0";
         },
       },
       {
@@ -165,7 +165,7 @@ export const InputPad = defineComponent({
               </Popup>
             </span>
           </span>
-          {/* <span class={s.amount}>{refAmount.value}</span> */}
+          <span class={s.amount}>{refAmount.value}</span>
         </div>
         <div class={s.buttons}>
           {buttons.map((button) => (

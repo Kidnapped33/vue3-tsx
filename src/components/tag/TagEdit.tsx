@@ -4,7 +4,7 @@ export const TagEdit = defineComponent({
   props: { name: { type: String as PropType<string> } },
   setup: (props, context) => {
     return () => {
-      <router-view />;
+        <div>edit</div>
     };
   }
 });

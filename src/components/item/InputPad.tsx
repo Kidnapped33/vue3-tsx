@@ -48,90 +48,25 @@ export const InputPad = defineComponent({
         }
       } else if (refAmount.value === "0" && refAmount.value.length === 1) {
         /**如果当前是0，输入8，则0变成8 */
-        refAmount.value = n.toString();
+        refAmount.value = n.toString(); 
       } else {
         return (refAmount.value += n.toString());
       }
     };
     const buttons = [
-      {
-        text: "1",
-        onClick: () => {
-          appendText(1);
-        },
-      },
-      {
-        text: "2",
-        onClick: () => {
-          appendText(2);
-        },
-      },
-      {
-        text: "3",
-        onClick: () => {
-          appendText(3);
-        },
-      },
-      {
-        text: "4",
-        onClick: () => {
-          appendText(4);
-        },
-      },
-      {
-        text: "5",
-        onClick: () => {
-          appendText(5);
-        },
-      },
-      {
-        text: "6",
-        onClick: () => {
-          appendText(6);
-        },
-      },
-      {
-        text: "7",
-        onClick: () => {
-          appendText(7);
-        },
-      },
-      {
-        text: "8",
-        onClick: () => {
-          appendText(8);
-        },
-      },
-      {
-        text: "9",
-        onClick: () => {
-          appendText(9);
-        },
-      },
-      {
-        text: ".",
-        onClick: () => {
-          appendText(".");
-        },
-      },
-      {
-        text: "0",
-        onClick: () => {
-          appendText(0);
-        },
-      },
-      {
-        text: "清空",
-        onClick: () => {
-          console.log("清空");
-        },
-      },
-      {
-        text: "提交",
-        onClick: () => {
-          console.log("提交");
-        },
-      },
+      { text: "1",onClick: () => { appendText(1)}},
+      { text: "2",onClick: () => { appendText(2)}},
+      { text: "3",onClick: () => { appendText(3)}},
+      { text: "4",onClick: () => { appendText(4)}},
+      { text: "5",onClick: () => { appendText(5)}},
+      { text: "6",onClick: () => { appendText(6)}},
+      { text: "7",onClick: () => { appendText(7)}},
+      { text: "8",onClick: () => { appendText(8)}},
+      { text: "9",onClick: () => { appendText(9)}},
+      { text: ".",onClick: () => { appendText(".")}},
+      { text: "0",onClick: () => { appendText(0)}},
+      { text: "清空", onClick: () => { refAmount.value = '0'}},
+      { text: "提交", onClick: () => { console.log("提交")}},
     ];
 
     const refDatePickerVisible = ref(false);
@@ -149,7 +84,7 @@ export const InputPad = defineComponent({
             <Icon name="date" class={s.icon} />
             <span>
               <span onClick={showDatePicker}>
-                {time(refDate.value).format()}
+                { time(refDate.value).format() }
               </span>
               <Popup
                 position="bottom"

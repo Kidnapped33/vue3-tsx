@@ -3,7 +3,7 @@ import { Icon } from "../../shared/Icon";
 import s from "./InputPad.module.scss";
 import { time } from "../../shared/time";
 import { DatetimePicker, NumberKeyboard, Popup } from "vant";
-// import 'vant/es/datetime-picker/style';
+import 'vant/es/datetime-picker/style';
 
 export const InputPad = defineComponent({
   props: {
@@ -165,7 +165,7 @@ export const InputPad = defineComponent({
               </Popup>
             </span>
           </span>
-          <span class={s.amount}>{refAmount.value}</span>
+          {/* <span class={s.amount}>{refAmount.value}</span> */}
         </div>
         <div class={s.buttons}>
           {buttons.map((button) => (

@@ -41,7 +41,7 @@
   > button {
     border: none;
     border-radius: 1px;
-    background: var(--button-bg);
+    background: var(--button-bg-important);
     &:nth-child(1) {
       grid-area: n1;
     }
@@ -80,7 +80,7 @@
     }
     &:nth-child(13) {
       grid-area: s;
-      background: var(--button-bg-important);
+      background: var(--button-bg);
       color: var(--button-text-important);
     }
   }

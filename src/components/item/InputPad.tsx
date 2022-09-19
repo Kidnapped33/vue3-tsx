@@ -104,7 +104,7 @@ export const InputPad = defineComponent({
         </div>
         <div class={s.buttons}>
           {buttons.map((button) => (
-            <button onClick={button.onClick}>{button.text}</button>
+            <button class="button" onClick={button.onClick}>{button.text}</button>
           ))}
         </div>
       </>

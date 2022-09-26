@@ -8,8 +8,6 @@ export const TagPage = defineComponent({
     },
   },
   setup: (props, context) => {
-    return () => {
-      <RouterView />;
-    };
+    return () => (<RouterView />);
   },
 });

@@ -10,7 +10,7 @@ export const TagCreate = defineComponent({
   setup: (props, context) => {
     const formData = reactive({
       name: '',
-      sign: '',
+      sign: 'x',
     })
     return () => (
       <MainLayout>
@@ -32,7 +32,7 @@ export const TagCreate = defineComponent({
               </div>
               <div class={s.formRow}>
                 <label class={s.formLabel}>
-                  <span class={s.formItem_name}>符号</span>
+                  <span class={s.formItem_name}>符号 {formData.sign}</span>
                   <div class={s.formItem_value}>
                     {/* <div class={[s.formItem, s.emojiList, s.error]}>
                       <nav>
@@ -54,7 +54,7 @@ export const TagCreate = defineComponent({
                         <li>😀</li>
                       </ol>
                     </div> */}
-                     <EmojiSelect class={[s.formItem, s.emojiList, s.error]} />
+                     <EmojiSelect v-model={formData.sign} class={[s.formItem, s.emojiList, s.error]} />
                   </div>
                 </label>
               </div>

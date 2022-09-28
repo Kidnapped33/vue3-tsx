@@ -1,4 +1,4 @@
-import { defineComponent, PropType, reactive  } from "vue";
+import { defineComponent, PropType, reactive, toRaw  } from "vue";
 import { MainLayout } from "../../layouts/MainLayout";
 import { Icon } from "../../shared/Icon";
 import { Button } from "../../shared/Button";
@@ -10,15 +10,23 @@ export const TagCreate = defineComponent({
   setup: (props, context) => {
     const formData = reactive({
       name: '',
-      sign: 'x',
+      sign: '',
     })
+    const onSubmit = (e:Event) => {
+      console.log('formData',formData)
+      console.log('toRaw的formData',toRaw(formData))
+
+      // const errors = validate(formData)
+      const errors = 'errors333'
+      e.preventDefault()
+    }
     return () => (
       <MainLayout>
         {{
           title: () => "新增标签",
           icon: () => <Icon name="left" onClick={() => {}} />,
           default: () => (
-            <form class={s.form}>
+            <form class={s.form} onSubmit={onSubmit}>
               <div class={s.formRow}>
                 <label class={s.formLabel}>
                   <span class={s.formItem_name}>标签名</span>
@@ -26,7 +34,7 @@ export const TagCreate = defineComponent({
                     <input v-model={formData.name} class={[s.formItem, s.input, s.error]}></input>
                   </div>
                   <div class={s.formItem_errorHint}>
-                    <span>必填</span>
+                    <span>必填{Error}</span>
                   </div>
                 </label>
               </div>

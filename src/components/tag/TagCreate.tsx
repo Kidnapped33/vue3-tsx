@@ -4,6 +4,7 @@ import { Icon } from "../../shared/Icon";
 import { Button } from "../../shared/Button";
 import s from "./TagCreate.module.scss";
 import { EmojiSelect } from '../../shared/EmojiSelect';
+import { Rules, validate } from '../../shared/validate';
 
 export const TagCreate = defineComponent({
   props: { name: { type: String as PropType<string> } },
@@ -12,12 +13,21 @@ export const TagCreate = defineComponent({
       name: '',
       sign: '',
     })
+    const errors = reactive<{[k in keyof typeof formData]?: string[]}>({})
     const onSubmit = (e:Event) => {
-      console.log('formData',formData)
-      console.log('toRaw的formData',toRaw(formData))
+      // console.log('formData',formData)
+      // console.log('toRaw的formData',toRaw(formData))
 
-      // const errors = validate(formData)
-      const errors = 'errors333'
+      const rules: Rules<typeof formData> = [
+        { key: 'name', type: 'required', message: '必填' },
+        { key: 'name', type: 'pattern', regex: /^.{1,4}$/, message: '只能填 1 到 4 个字符' },
+        { key: 'sign', type: 'required', message: '必填' },
+      ]
+      Object.assign(errors, {
+        name: undefined,
+        sign: undefined
+      })
+      Object.assign(errors, validate(formData, rules))
       e.preventDefault()
     }
     return () => (
@@ -34,7 +44,7 @@ export const TagCreate = defineComponent({
                     <input v-model={formData.name} class={[s.formItem, s.input, s.error]}></input>
                   </div>
                   <div class={s.formItem_errorHint}>
-                    <span>必填{Error}</span>
+                    <span>{errors['name'] ? errors['name'][0]: ' '}</span>
                   </div>
                 </label>
               </div>
@@ -42,27 +52,10 @@ export const TagCreate = defineComponent({
                 <label class={s.formLabel}>
                   <span class={s.formItem_name}>符号 {formData.sign}</span>
                   <div class={s.formItem_value}>
-                    {/* <div class={[s.formItem, s.emojiList, s.error]}>
-                      <nav>
-                        <span class={s.selected}>表情</span>
-                        <span>手势</span>
-                        <span>职业</span>
-                        <span>衣服</span>
-                        <span>动物</span>
-                        <span>自然</span>
-                      </nav>
-                      <ol>
-                        <li>😀</li>
-                        <li>😀</li>
-                        <li>😀</li>
-                        <li>😀</li>
-                        <li>😀</li>
-                        <li>😀</li>
-                        <li>😀</li>
-                        <li>😀</li>
-                      </ol>
-                    </div> */}
                      <EmojiSelect v-model={formData.sign} class={[s.formItem, s.emojiList, s.error]} />
+                  </div>
+                  <div class={s.formItem_errorHint}>
+                    <span>{errors['sign'] ? errors['sign'][0] : '　'}</span>
                   </div>
                 </label>
               </div>

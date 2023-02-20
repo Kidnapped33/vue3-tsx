@@ -6,6 +6,7 @@ import { Center } from "../shared/Center";
 import { FloatButton } from "../shared/FloatButton";
 import { Icon } from "../shared/Icon";
 import { Overlay } from "../shared/Overlay";
+import { Tabs, Tab } from "../shared/Tabs";
 import s from "./StartPage.module.scss";
 
 export const StartPage = defineComponent({
@@ -23,6 +24,10 @@ export const StartPage = defineComponent({
           ),
           default: () => (
             <>
+              <Tabs>
+                <Tab name="本月"></Tab>
+                <Tab name="上月"></Tab>
+              </Tabs>
               <Center class={s.img_wrapper}>
                 <Icon name="watermelon" class={s.img} />
               </Center>

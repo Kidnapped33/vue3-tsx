@@ -66,7 +66,14 @@ export const InputPad = defineComponent({
       { text: ".",onClick: () => { appendText(".")}},
       { text: "0",onClick: () => { appendText(0)}},
       { text: "清空", onClick: () => { refAmount.value = '0'}},
-      { text: "提交", onClick: () => { console.log("提交")}},
+      { text: "提交", onClick: () => { 
+        /**
+         * 如果为0， 提示输入金额
+         */
+        if(refAmount.value === '0') {alert('花了多少钱呀？')}
+        console.log("提交" + refAmount.value)
+      }
+    },
     ];
 
     const refDatePickerVisible = ref(false);

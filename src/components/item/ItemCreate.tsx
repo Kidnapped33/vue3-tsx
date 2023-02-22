@@ -59,6 +59,9 @@ export const ItemCreate = defineComponent({
       { id: 17, name: "彩票", sign: "￥", category: "income" },
       { id: 19, name: "滴滴", sign: "￥", category: "income" },
     ]);
+    // const addSvg = () =>{
+    //   console.log('3333')
+    // }
     return () => (
       <div>
         <MainLayout class={s.layout}>
@@ -87,10 +90,12 @@ export const ItemCreate = defineComponent({
                   <Tabs v-model:selected={refKind.value} class={s.tabs}>
                     <Tab name="支出" class={s.tags_wrapper}>
                       <div class={s.tag}>
-                        <div class={s.sign}>
-                          <Icon name="add" class={s.createTag} />
-                        </div>
-                        <div class={s.name}>新增</div>
+                        <RouterLink to="/tags/create">
+                          <div class={s.sign}>
+                            <Icon name="add" class={s.createTag} />
+                          </div>
+                        </RouterLink>
+                          <div class={s.name}>新增1</div>
                       </div>
                       {refExpensesTags.value.map((tag) => (
                         <div class={[s.tag, s.selected]}>
@@ -101,9 +106,11 @@ export const ItemCreate = defineComponent({
                     </Tab>
                     <Tab name="收入" class={s.tags_wrapper}>
                       <div class={s.tag}>
-                        <div class={s.sign}>
-                          <Icon name="add" class={s.createTag} />
-                        </div>
+                        <RouterLink to="/tags/create">
+                          <div class={s.sign}>
+                            <Icon name="add" class={s.createTag} />
+                          </div>
+                        </RouterLink>
                         <div class={s.name}>新增</div>
                       </div>
                       {refIncomeTags.value.map((tag) => (

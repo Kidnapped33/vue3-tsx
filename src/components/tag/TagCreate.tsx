@@ -5,6 +5,7 @@ import { Button } from "../../shared/Button";
 import s from "./Tag.module.scss";
 import { EmojiSelect } from '../../shared/EmojiSelect';
 import { Rules, validate } from '../../shared/validate';
+import { RouterLink } from "vue-router";
 
 export const TagCreate = defineComponent({
   props: { name: { type: String as PropType<string> } },
@@ -15,7 +16,7 @@ export const TagCreate = defineComponent({
     })
     const errors = reactive<{[k in keyof typeof formData]?: string[]}>({})
     const onSubmit = (e:Event) => {
-      // console.log('formData',formData)
+      // console.log('formData',formData)/
       // console.log('toRaw的formData',toRaw(formData))
 
       const rules: Rules<typeof formData> = [
@@ -31,10 +32,13 @@ export const TagCreate = defineComponent({
       e.preventDefault()
     }
     return () => (
-      <MainLayout>
-        {{
+      <MainLayout>{{
           title: () => "新增标签",
-          icon: () => <Icon name="left" onClick={() => {}} />,
+          icon: () => (
+                        <RouterLink to='/items/create'> 
+                          <Icon name="left"  class={s.navIcon}/> 
+                        </RouterLink>
+                      ) ,
           default: () => (
             <form class={s.form} onSubmit={onSubmit}>
               <div class={s.formRow}>
@@ -44,7 +48,7 @@ export const TagCreate = defineComponent({
                     <input v-model={formData.name} class={[s.formItem, s.input, s.error]}></input>
                   </div>
                   <div class={s.formItem_errorHint}>
-                    <span>{errors['name'] ? errors['name'][0]: ' '}</span>
+                    <span>{errors['name'] ? errors['name'][0]:'　'}</span>
                   </div>
                 </label>
               </div>
@@ -55,20 +59,19 @@ export const TagCreate = defineComponent({
                      <EmojiSelect v-model={formData.sign} class={[s.formItem, s.emojiList, s.error]} />
                   </div>
                   <div class={s.formItem_errorHint}>
-                    <span>{errors['sign'] ? errors['sign'][0] : '　'}</span>
+                    <span>{errors['sign'] ? errors['sign'][0]:'　'}</span>
                   </div>
                 </label>
               </div>
               <p class={s.tips}>记账时长按标签即可进行编辑</p>
               <div class={s.formRow}>
                 <div class={s.formItem_value}>
-                  <Button class={[s.formItem, s.button]}>确定</Button>
+                  <Button class={[s.formItem, s.button]} >确定</Button>
                 </div>
               </div>
             </form>
           ),
-        }}
-      </MainLayout>
+        }}</MainLayout>
     );
   },
 });

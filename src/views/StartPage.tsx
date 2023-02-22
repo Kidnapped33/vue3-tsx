@@ -19,15 +19,13 @@ export const StartPage = defineComponent({
       <MainLayout>
         {{
           title: () => "西瓜",
-          icon: () => (
-            <Icon name="menu" class={s.navIcon} onClick={onClickMenu} />
-          ),
+          icon: () => <Icon name="menu" class={s.navIcon} onClick={onClickMenu} /> ,
           default: () => (
             <>
-              <Tabs>
+              {/* <Tabs>
                 <Tab name="本月"></Tab>
                 <Tab name="上月"></Tab>
-              </Tabs>
+              </Tabs> */}
               <Center class={s.img_wrapper}>
                 <Icon name="watermelon" class={s.img} />
               </Center>

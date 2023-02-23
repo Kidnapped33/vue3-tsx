@@ -37,7 +37,7 @@ export const TagEdit = defineComponent({
               <div>
                 <TagForm/>
                 <div class={s.editButtons}>
-                  <Button class={s.editButton}>删除标签和记账</Button>
+                  <Button class={s.editButton} level='danger'>删除标签和记账</Button>
                 </div>
               </div>
             // <form class={s.form} onSubmit={onSubmit}>

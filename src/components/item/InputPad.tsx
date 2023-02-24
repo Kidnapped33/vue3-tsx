@@ -91,7 +91,8 @@ export const InputPad = defineComponent({
             <Icon name="date" class={s.icon} />
             <span>
               <span onClick={showDatePicker}>
-                { new Time(refDate.value).format() }
+                {/* { new Time(refDate.value).format() } */}
+                { new Time(refDate.value).firstDayOfMonth() }
               </span>
               <Popup
                 position="bottom"

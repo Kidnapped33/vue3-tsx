@@ -1,8 +1,10 @@
-import { defineComponent, PropType, ref } from "vue";
+import { defineComponent, PropType, reactive, ref } from "vue";
 import { MainLayout } from "../../layouts/MainLayout";
 import { Icon } from "../../shared/Icon";
 import { Tab, Tabs } from "../../shared/Tabs";
+import { Time } from "../../shared/time";
 import s from './ItemList.module.scss';
+import { ItemSummary } from "./ItemSummary";
 
 export const ItemList = defineComponent({
     props: {
@@ -12,6 +14,29 @@ export const ItemList = defineComponent({
       },
       setup: (props, context) => {
         const refSelected = ref<string>('本月')
+        const time = new Time()
+        // const customTime = ref<string[]>([time.firstDayOfMonth().format(),time.lastDayOfMonth().format()])
+        const customTime = reactive({
+          start: new Time(),
+          end: new Time()
+        })
+        const timeList = [
+          // '本月'
+          {
+            start: time.firstDayOfMonth(), 
+            end: time.lastDayOfMonth()
+          },
+          // '上月'
+          {
+            start: time.add(-1,'month').firstDayOfMonth(),
+            end: time.add(-1,'month').lastDayOfMonth(),
+          },
+          // 今年'
+          {
+            start: time.firstDayOfYear(),
+            end: time.lastDayOfYear()  
+          },
+        ]
         return () => (
           <MainLayout>
             {{
@@ -20,16 +45,17 @@ export const ItemList = defineComponent({
               default:()=>(
                <Tabs classPrefix={'customTabs'} v-model:selected={refSelected.value}>
                 <Tab name='本月'>
-                  <div>
-                    <div>收入</div>
-                    <div>支出</div>
-                    <div>净收入</div>
-                  </div>
-                  本月123123
+                  <ItemSummary startTime={timeList[0].start.format()} endTime={timeList[0].end.format()} />
                 </Tab>
-                <Tab name='上月'>上月</Tab>
-                <Tab name='今年'>今年</Tab>
-                <Tab name='自定义起始时间'>自定义起始时间</Tab>
+                <Tab name='上月'>
+                  <ItemSummary startTime={timeList[1].start.format()} endTime={timeList[1].end.format()} />
+                </Tab>
+                <Tab name='今年'>
+                  <ItemSummary startTime={timeList[2].start.format()} endTime={timeList[2].end.format()} />
+                </Tab>
+                <Tab name='自定义起始时间'>
+                  <ItemSummary startTime={customTime.start.format()} endTime={customTime.end.format()}/>
+                </Tab>
                </Tabs>
               )
             }}

@@ -115,8 +115,9 @@ export class Time {
         date.setMilliseconds(date.getMilliseconds() + amount);
         break;
       default:
-        break;
+        throw new Error('Time.add: unknown unit');
     }
+    return new Time(date)
   }
 }
 

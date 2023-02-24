@@ -1,10 +1,11 @@
-import { defineComponent, PropType, reactive, ref } from "vue";
+import { defineComponent, PropType, reactive, ref, watchEffect } from "vue";
 import { MainLayout } from "../../layouts/MainLayout";
 import { Icon } from "../../shared/Icon";
 import { Tab, Tabs } from "../../shared/Tabs";
 import { Time } from "../../shared/time";
 import s from './ItemList.module.scss';
 import { ItemSummary } from "./ItemSummary";
+import { Overlay } from 'vant';
 
 export const ItemList = defineComponent({
     props: {
@@ -37,26 +38,54 @@ export const ItemList = defineComponent({
             end: time.lastDayOfYear()  
           },
         ]
+
+        watchEffect(()=>{
+          if(refSelected.value === '自定义起始时间'){
+            refOverlayVisible.value = true
+          }
+        })
+        
+        const refOverlayVisible = ref<boolean>(false)
         return () => (
           <MainLayout>
             {{
               title:() => "西瓜记账",
               Icon:() => <Icon name="menu" class={s.navIcon} /> ,
               default:()=>(
-               <Tabs classPrefix={'customTabs'} v-model:selected={refSelected.value}>
-                <Tab name='本月'>
-                  <ItemSummary startTime={timeList[0].start.format()} endTime={timeList[0].end.format()} />
-                </Tab>
-                <Tab name='上月'>
-                  <ItemSummary startTime={timeList[1].start.format()} endTime={timeList[1].end.format()} />
-                </Tab>
-                <Tab name='今年'>
-                  <ItemSummary startTime={timeList[2].start.format()} endTime={timeList[2].end.format()} />
-                </Tab>
-                <Tab name='自定义起始时间'>
-                  <ItemSummary startTime={customTime.start.format()} endTime={customTime.end.format()}/>
-                </Tab>
-               </Tabs>
+              <>
+                <Tabs classPrefix={'customTabs'} v-model:selected={refSelected.value}>
+                  <Tab name='本月'>
+                    <ItemSummary startTime={timeList[0].start.format()} endTime={timeList[0].end.format()} />
+                  </Tab>
+                  <Tab name='上月'>
+                    <ItemSummary startTime={timeList[1].start.format()} endTime={timeList[1].end.format()} />
+                  </Tab>
+                  <Tab name='今年'>
+                    <ItemSummary startTime={timeList[2].start.format()} endTime={timeList[2].end.format()} />
+                  </Tab>
+                  <Tab name='自定义起始时间'>
+                    <ItemSummary startTime={customTime.start.format()} endTime={customTime.end.format()}/>
+                  </Tab>
+                  
+                </Tabs>
+                <Overlay show={refOverlayVisible.value} class={s.overlay}>
+                  <div class={s.overlay_inner} >
+                    <header>
+                      请选择时间
+                    </header>
+                    <main>
+                      <form>
+                        <div>
+1213
+                        </div>
+                        <div>
+123123123
+                        </div>
+                      </form>
+                    </main>
+                  </div>
+                </Overlay>
+               </>
               )
             }}
           </MainLayout>

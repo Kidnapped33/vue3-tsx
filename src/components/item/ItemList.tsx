@@ -6,6 +6,7 @@ import { Time } from "../../shared/time";
 import s from './ItemList.module.scss';
 import { ItemSummary } from "./ItemSummary";
 import { Overlay } from 'vant';
+import { Form, FormItem } from "../../shared/Form";
 
 export const ItemList = defineComponent({
     props: {
@@ -74,16 +75,12 @@ export const ItemList = defineComponent({
                       请选择时间
                     </header>
                     <main>
-                      <form>
-                        <div>
-                          <label>开始时间</label>
-                        </div>
-                        <input></input>
-                        <div>
-                          <label>结束时间</label>
-                        </div>
-                        <input></input>
-                      </form>
+                      <Form>
+                         <FormItem label='开始时间' v-model={customTime.start} type='date' />
+                      </Form>
+                      <Form>
+                         <FormItem label='结束时间' v-model={customTime.end} type='date' />
+                      </Form>
                     </main>
                   </div>
                 </Overlay>

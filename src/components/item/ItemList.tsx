@@ -5,8 +5,9 @@ import { Tab, Tabs } from "../../shared/Tabs";
 import { Time } from "../../shared/time";
 import s from './ItemList.module.scss';
 import { ItemSummary } from "./ItemSummary";
-import { Overlay } from 'vant';
+import {  Overlay } from 'vant';
 import { Form, FormItem } from "../../shared/Form";
+import { Button } from "../../shared/Button";
 
 export const ItemList = defineComponent({
     props: {
@@ -47,6 +48,10 @@ export const ItemList = defineComponent({
         })
 
         const refOverlayVisible = ref<boolean>(false)
+        const onSubmitCustomTime = (e: Event) => {
+          e.preventDefault()
+          refOverlayVisible.value = false
+        }
         return () => (
           <MainLayout>
             {{
@@ -75,11 +80,15 @@ export const ItemList = defineComponent({
                       请选择时间
                     </header>
                     <main>
-                      <Form>
+                      <Form onSubmit={onSubmitCustomTime}>
                          <FormItem label='开始时间' v-model={customTime.start} type='date' />
-                      </Form>
-                      <Form>
                          <FormItem label='结束时间' v-model={customTime.end} type='date' />
+                         <FormItem>
+                            <div class={s.actions}>
+                              <Button type="button">取消</Button>
+                              <Button type="submit">确认</Button>
+                            </div>
+                         </FormItem>
                       </Form>
                     </main>
                   </div>

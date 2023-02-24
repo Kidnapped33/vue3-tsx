@@ -44,7 +44,7 @@ export const ItemList = defineComponent({
             refOverlayVisible.value = true
           }
         })
-        
+
         const refOverlayVisible = ref<boolean>(false)
         return () => (
           <MainLayout>
@@ -76,11 +76,13 @@ export const ItemList = defineComponent({
                     <main>
                       <form>
                         <div>
-1213
+                          <label>开始时间</label>
                         </div>
+                        <input></input>
                         <div>
-123123123
+                          <label>结束时间</label>
                         </div>
+                        <input></input>
                       </form>
                     </main>
                   </div>

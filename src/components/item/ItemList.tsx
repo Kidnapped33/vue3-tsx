@@ -18,8 +18,8 @@ export const ItemList = defineComponent({
         const time = new Time()
         // const customTime = ref<string[]>([time.firstDayOfMonth().format(),time.lastDayOfMonth().format()])
         const customTime = reactive({
-          start: new Time(),
-          end: new Time()
+          start: new Time().format(),
+          end: new Time().format()
         })
         const timeList = [
           // '本月'
@@ -64,7 +64,7 @@ export const ItemList = defineComponent({
                     <ItemSummary startTime={timeList[2].start.format()} endTime={timeList[2].end.format()} />
                   </Tab>
                   <Tab name='自定义起始时间'>
-                    <ItemSummary startTime={customTime.start.format()} endTime={customTime.end.format()}/>
+                    <ItemSummary startTime={customTime.start} endTime={customTime.end}/>
                   </Tab>
                   
                 </Tabs>

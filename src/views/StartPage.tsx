@@ -5,21 +5,18 @@ import { Button } from "../shared/Button";
 import { Center } from "../shared/Center";
 import { FloatButton } from "../shared/FloatButton";
 import { Icon } from "../shared/Icon";
-import { Overlay } from "../shared/Overlay";
+import { Overlay, OverlayIcon } from "../shared/Overlay";
 import { Tabs, Tab } from "../shared/Tabs";
 import s from "./StartPage.module.scss";
 
 export const StartPage = defineComponent({
   setup: (props, context) => {
-    const overlayVisible = ref<boolean>(false);
-    const onClickMenu = () => {
-      overlayVisible.value = !overlayVisible.value;
-    };
+
     return () => (
       <MainLayout>
         {{
-          title: () => "西瓜",
-          icon: () => <Icon name="menu" class={s.navIcon} onClick={onClickMenu} /> ,
+          title: () => "西瓜记账",
+          icon: () => <OverlayIcon />,
           default: () => (
             <>
               {/* <Tabs>
@@ -37,11 +34,6 @@ export const StartPage = defineComponent({
               <RouterLink to="/items/create">
                 <FloatButton iconName="add" />
               </RouterLink>
-              {overlayVisible.value && (
-                <Overlay
-                  onClose={() => (overlayVisible.value = false)}
-                ></Overlay>
-              )}
             </>
           ),
         }}

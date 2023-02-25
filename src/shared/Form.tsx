@@ -1,5 +1,6 @@
 import { DatetimePicker, Popup } from 'vant';
 import { computed, defineComponent, PropType, ref, VNode } from 'vue';
+import { Button } from './Button';
 import { EmojiSelect } from './EmojiSelect';
 import s from './Form.module.scss';
 import { Time } from './time';
@@ -27,9 +28,12 @@ export const FormItem = defineComponent({
       type: [String, Number]
     },
     type: {
-      type: String as PropType<'text' | 'emojiSelect' | 'date'>,
+      type: String as PropType<'text' | 'emojiSelect' | 'date' | 'validationCode'>,
     },
     error: {
+      type: String
+    },
+    placeholder: {  // 仅在type为validationCode时有效 
       type: String
     }
   },
@@ -40,6 +44,7 @@ export const FormItem = defineComponent({
         case 'text':
           return <input
             value={props.modelValue}
+            placeholder={props.placeholder}
             onInput={(e: any) => context.emit('update:modelValue', e.target.value)}
             class={[s.formItem, s.input]} />
         case 'emojiSelect':
@@ -51,6 +56,7 @@ export const FormItem = defineComponent({
           return <>
             <input
               readonly={true} value={props.modelValue}
+              placeholder={props.placeholder}
               onClick={() => {refDateVisible.value = true}}
               class={[s.formItem, s.input]}/>
               <Popup position="bottom" v-model:show={refDateVisible.value}>
@@ -63,6 +69,11 @@ export const FormItem = defineComponent({
                  ></DatetimePicker>
               </Popup>
           </>
+        case 'validationCode':
+          return <>
+            <input  class={[s.formItem, s.input,  s.validationCodeInput]} placeholder={props.placeholder}></input>
+            <Button class={[s.formItem, s.input, s.validationCodeButton]}>发送验证码</Button>
+            </>
         case undefined:
           return context.slots.default?.()
       }

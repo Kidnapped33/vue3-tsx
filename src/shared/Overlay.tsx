@@ -53,8 +53,6 @@ export const Overlay = defineComponent({
 export const OverlayIcon = defineComponent({
   
   setup: (props, context) => {
-    console.log('OverlayIcon')
-    
     const overlayVisible = ref<boolean>(false);
 
     const onClickMenu = () => {

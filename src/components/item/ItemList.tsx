@@ -50,6 +50,7 @@ export const ItemList = defineComponent({
 
     const refOverlayVisible = ref<boolean>(false);
     const onSubmitCustomTime = (e: Event) => {
+      console.log('eee',e.target)
       e.preventDefault();
       refOverlayVisible.value = false;
     };
@@ -111,8 +112,8 @@ export const ItemList = defineComponent({
                       />
                       <FormItem>
                         <div class={s.actions}>
-                          <Button type="button">取消</Button>
-                          <Button type="submit">确认</Button>
+                          <button type="button" onClick={()=> refOverlayVisible.value = false}>取消</button>
+                          <button type="submit">确认</button>
                         </div>
                       </FormItem>
                     </Form>

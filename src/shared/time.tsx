@@ -39,7 +39,6 @@ export class Time {
 
   format(pattern = "YYYY-MM-DD"){
     const year = this.date.getFullYear();
-    console.log('year',year)
     const month = this.date.getMonth() + 1;
     const day = this.date.getDate();
     const hour = this.date.getHours();

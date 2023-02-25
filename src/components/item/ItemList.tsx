@@ -41,11 +41,11 @@ export const ItemList = defineComponent({
           },
         ]
 
-        watchEffect(()=>{
-          if(refSelected.value === '自定义起始时间'){
-            refOverlayVisible.value = true
-          }
-        })
+        // watchEffect(()=>{
+        //   if(refSelected.value === '自定义起始时间'){
+        //     refOverlayVisible.value = true
+        //   }
+        // })
 
         const refOverlayVisible = ref<boolean>(false)
         const onSubmitCustomTime = (e: Event) => {
@@ -59,7 +59,12 @@ export const ItemList = defineComponent({
               Icon:() => <Icon name="menu" class={s.navIcon} /> ,
               default:()=>(
               <>
-                <Tabs classPrefix={'customTabs'} v-model:selected={refSelected.value}>
+                <Tabs classPrefix={'customTabs'} 
+                  v-model:selected={refSelected.value} 
+                  onUpdate:selected={() => 
+                  refOverlayVisible.value = refSelected.value === '自定义起始时间'
+                }
+                  >
                   <Tab name='本月'>
                     <ItemSummary startTime={timeList[0].start.format()} endTime={timeList[0].end.format()} />
                   </Tab>
@@ -69,7 +74,7 @@ export const ItemList = defineComponent({
                   <Tab name='今年'>
                     <ItemSummary startTime={timeList[2].start.format()} endTime={timeList[2].end.format()} />
                   </Tab>
-                  <Tab name='自定义起始时间'>
+                  <Tab name='自定义起始时间' >
                     <ItemSummary startTime={customTime.start} endTime={customTime.end}/>
                   </Tab>
                   

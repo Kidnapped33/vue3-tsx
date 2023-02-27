@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@vueuse/core": "8.6.0",
+    "echarts": "^5.4.1",
     "sass": "1.51.0",
     "svgo": "2.8.0",
     "svgstore": "3.0.1",

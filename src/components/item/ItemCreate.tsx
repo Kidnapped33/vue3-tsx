@@ -67,7 +67,7 @@ export const ItemCreate = defineComponent({
         <MainLayout class={s.layout}>
           {{
             icon: () => (
-              <RouterLink to="/Start">
+              <RouterLink to="/start">
                 <Icon name="left" class={s.navIcon}></Icon>
               </RouterLink>
             ),
@@ -95,7 +95,7 @@ export const ItemCreate = defineComponent({
                             <Icon name="add" class={s.createTag} />
                           </div>
                         </RouterLink>
-                          <div class={s.name}>新增1</div>
+                        <div class={s.name}>新增1</div>
                       </div>
                       {refExpensesTags.value.map((tag) => (
                         <div class={[s.tag, s.selected]}>

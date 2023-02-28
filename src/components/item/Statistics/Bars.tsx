@@ -1,5 +1,5 @@
 import { computed, defineComponent, reactive } from "vue";
-import s from "./BarChart.module.scss";
+import s from "./Bars.module.scss";
 
 export const Bars = defineComponent({
   setup: (props, context) => {

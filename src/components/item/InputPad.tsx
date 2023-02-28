@@ -92,7 +92,7 @@ export const InputPad = defineComponent({
             <span>
               <span onClick={showDatePicker}>
                 {/* { new Time(refDate.value).format() } */}
-                { new Time(refDate.value).firstDayOfMonth() }
+                { new Time(refDate.value).firstDayOfMonth()}
               </span>
               <Popup
                 position="bottom"

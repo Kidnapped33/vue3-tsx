@@ -5,6 +5,8 @@ import { Form, FormItem } from "../shared/Form";
 import { Icon } from "../shared/Icon";
 import { validate } from "../shared/validate";
 import s from "./SignInPage.module.scss";
+import service from "../api";
+import { emailSignIn, IdentityType } from "../api/watermelon/api";
 
 export const SignInPage = defineComponent({
   setup: (props, context) => {
@@ -18,21 +20,42 @@ export const SignInPage = defineComponent({
       code: [],
     });
 
-    const onSubmit = (e: Event) => {
+    const onSubmit = async (e: Event) => {
       e.preventDefault();
+      const data = {
+        identity_type: IdentityType.邮箱,
+        identifier: formData.email,
+        credential: formData.code,
+      };
+      const res = await emailSignIn(data);
+      console.log("res======", res);
+
+      // admin@Ghosteye.com
+      // 123456
+      // service.post("/api/v1/auth/emailSignIn", data).then((res) => {
+      //   console.log("res======", res);
+      // });
       console.log(formData);
-      Object.assign(errors, {email:[], code:[]})
-      Object.assign(errors, validate(formData, [
-        { key: 'email', type: 'required', message: '必填' },
-        { key: 'email', type: 'pattern', regex: /.+@.+/, message: '必须是邮箱地址' },
-        { key: 'code', type: 'required', message: '必填' },
-      ]))
-    }
+      Object.assign(errors, { email: [], code: [] });
+      Object.assign(
+        errors,
+        validate(formData, [
+          { key: "email", type: "required", message: "必填" },
+          {
+            key: "email",
+            type: "pattern",
+            regex: /.+@.+/,
+            message: "必须是邮箱地址",
+          },
+          { key: "code", type: "required", message: "必填" },
+        ])
+      );
+    };
     return () => (
       <MainLayout>
         {{
           title: () => "登录",
-          icon: () => <Icon name="left"/>,
+          icon: () => <Icon name="left" />,
           default: () => (
             <div class={s.wrapper}>
               <div class={s.logo}>
@@ -44,15 +67,17 @@ export const SignInPage = defineComponent({
                   label="邮箱地址"
                   type="text"
                   placeholder="请输入邮箱，然后点击发送验证码"
-                  v-model={formData.email} error={errors.email?.[0] ? errors.email?.[0] : '　'}
+                  v-model={formData.email}
+                  error={errors.email?.[0] ? errors.email?.[0] : "　"}
                 ></FormItem>
                 <FormItem
                   label="验证码"
                   type="validationCode"
-                  placeholder='请输入六位数字'
-                  v-model={formData.code} error={errors.code?.[0] ? errors.code?.[0] : '　'}
+                  placeholder="请输入六位数字"
+                  v-model={formData.code}
+                  error={errors.code?.[0] ? errors.code?.[0] : "　"}
                 ></FormItem>
-                <FormItem style={{ paddingTop: '96px' }}>
+                <FormItem style={{ paddingTop: "96px" }}>
                   <Button>登录</Button>
                 </FormItem>
               </Form>

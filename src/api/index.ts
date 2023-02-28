@@ -1,14 +1,21 @@
 import axios from "axios";
 
-// 创建axios实例
+/**
+ * 创建axios实例
+ */
+
 const service = axios.create({
-  baseURL: "https://some-domain.com/api/",
+  // baseURL: "https://some-domain.com/api/",
+  baseURL: "http://192.168.1.2:3000/api",
+  // baseURL: "",
   timeout: 1000,
   //headers: {'X-Custom-Header': 'foobar'}
   //Authorization: 'Bearer ' + token
 });
 
-// 请求拦截器
+/**
+ *  请求拦截器
+ */
 service.interceptors.request.use(
   function (config) {
     // 在发送请求之前做些什么
@@ -20,7 +27,9 @@ service.interceptors.request.use(
   }
 );
 
-// 响应拦截器
+/**
+ *  响应拦截器
+ */
 service.interceptors.response.use(
   function (response) {
     // 2xx 范围内的状态码都会触发该函数。

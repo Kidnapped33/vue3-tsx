@@ -6,11 +6,14 @@ import { Icon } from "../shared/Icon";
 import { validate } from "../shared/validate";
 import s from "./SignInPage.module.scss";
 import service, { setToken } from "../api";
-import { emailSignIn, IdentityType } from "../api/watermelon/api";
-import { router } from "../main";
+import { emailSignIn } from "../api/watermelon/api";
+import { useRouter } from "vue-router";
 
 export const SignInPage = defineComponent({
   setup: (props, context) => {
+    
+    const router = useRouter()
+
     const formData = reactive({
       email: "1@qq.com",
       code: "123456",

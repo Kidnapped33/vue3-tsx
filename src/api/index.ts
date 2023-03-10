@@ -6,7 +6,8 @@ import axios from "axios";
 
 const service = axios.create({
   // baseURL: "https://some-domain.com/api/",
-  baseURL: "http://192.168.1.2:3000/api",
+  // baseURL: "http://192.168.1.2:3000/api",
+  baseURL: "http://121.196.236.94:8080/api",
   // baseURL: "",
   timeout: 1000,
   //headers: {'X-Custom-Header': 'foobar'}
@@ -39,7 +40,13 @@ service.interceptors.response.use(
   function (error) {
     // 超出 2xx 范围的状态码都会触发该函数。
     // 对响应错误做点什么
-    return Promise.reject(error);
+    console.log('error----',error.response.status)
+    return Promise.reject(error).catch((error) => {
+      if (error.response.status === 422) {
+        alert("请输入正确的用户名和密码");
+        // router.push('/login');
+      }
+    });
   }
 );
 

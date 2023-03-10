@@ -11,8 +11,8 @@ import { emailSignIn, IdentityType } from "../api/watermelon/api";
 export const SignInPage = defineComponent({
   setup: (props, context) => {
     const formData = reactive({
-      email: "",
-      code: "",
+      email: "1@qq.com",
+      code: "123456",
     });
 
     const errors = reactive({
@@ -23,19 +23,28 @@ export const SignInPage = defineComponent({
     const onSubmit = async (e: Event) => {
       e.preventDefault();
       const data = {
-        identity_type: IdentityType.邮箱,
-        identifier: formData.email,
-        credential: formData.code,
+        email: formData.email,
+        code: formData.code,
       };
       const res = await emailSignIn(data);
-      console.log("res======", res);
+
+      // 获取 token
+      if (res.data.jwt) {
+        localStorage.setItem("token", res.data.jwt);
+        // .push("/home");
+        // router.push("/home");
+        // const token = localStorage.getItem("token");
+      }else{
+        console.log("登录失败，请重试");
+      }
+
+      console.log("jwt======", res.data.jwt);
 
       // admin@Ghosteye.com
       // 123456
       // service.post("/api/v1/auth/emailSignIn", data).then((res) => {
       //   console.log("res======", res);
       // });
-      console.log(formData);
       Object.assign(errors, { email: [], code: [] });
       Object.assign(
         errors,

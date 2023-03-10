@@ -12,8 +12,22 @@ export const ItemCreate = defineComponent({
     },
   },
   setup: (props, context) => {
-    const refKind = ref("支出");
-    const refExpensesTags = ref([
+    interface Tag {
+      id: number;
+      name: string;
+      sign: string;
+      category: string;
+    }
+
+    enum RefKind {
+      expenses = "支出", // 支出
+      income = "收入", // 收入
+    }
+
+    const refKind = ref<RefKind>(RefKind.expenses);
+
+    
+    const refExpensesTags = ref<Tag[]>([
       { id: 1, name: "餐饮", sign: "🍔", category: "expenses" },
       { id: 2, name: "打车", sign: "￥", category: "expenses" },
       { id: 3, name: "聚餐", sign: "￥", category: "expenses" },
@@ -22,46 +36,13 @@ export const ItemCreate = defineComponent({
       { id: 6, name: "打车", sign: "￥", category: "expenses" },
       { id: 7, name: "聚餐", sign: "￥", category: "expenses" },
     ]);
-    const refIncomeTags = ref([
-      { id: 4, name: "工资", sign: "￥", category: "income" },
-      { id: 5, name: "彩票", sign: "￥", category: "income" },
-      { id: 6, name: "滴滴", sign: "￥", category: "income" },
-      { id: 11, name: "彩票", sign: "￥", category: "income" },
-      { id: 18, name: "滴滴", sign: "￥", category: "income" },
-      { id: 17, name: "彩票", sign: "￥", category: "income" },
-      { id: 19, name: "滴滴", sign: "￥", category: "income" },
-      { id: 4, name: "工资", sign: "￥", category: "income" },
-      { id: 5, name: "彩票", sign: "￥", category: "income" },
-      { id: 6, name: "滴滴", sign: "￥", category: "income" },
-      { id: 11, name: "彩票", sign: "￥", category: "income" },
-      { id: 18, name: "滴滴", sign: "￥", category: "income" },
-      { id: 17, name: "彩票", sign: "￥", category: "income" },
-      { id: 19, name: "滴滴", sign: "￥", category: "income" },
-      { id: 4, name: "工资", sign: "￥", category: "income" },
-      { id: 5, name: "彩票", sign: "￥", category: "income" },
-      { id: 6, name: "滴滴", sign: "￥", category: "income" },
-      { id: 11, name: "彩票", sign: "￥", category: "income" },
-      { id: 18, name: "滴滴", sign: "￥", category: "income" },
-      { id: 17, name: "彩票", sign: "￥", category: "income" },
-      { id: 19, name: "滴滴", sign: "￥", category: "income" },
-      { id: 4, name: "工资", sign: "￥", category: "income" },
-      { id: 5, name: "彩票", sign: "￥", category: "income" },
-      { id: 6, name: "滴滴", sign: "￥", category: "income" },
-      { id: 11, name: "彩票", sign: "￥", category: "income" },
-      { id: 18, name: "滴滴", sign: "￥", category: "income" },
-      { id: 17, name: "彩票", sign: "￥", category: "income" },
-      { id: 19, name: "滴滴", sign: "￥", category: "income" },
-      { id: 4, name: "工资", sign: "￥", category: "income" },
-      { id: 5, name: "彩票", sign: "￥", category: "income" },
-      { id: 6, name: "滴滴", sign: "￥", category: "income" },
-      { id: 11, name: "彩票", sign: "￥", category: "income" },
-      { id: 18, name: "滴滴", sign: "￥", category: "income" },
-      { id: 17, name: "彩票", sign: "￥", category: "income" },
-      { id: 19, name: "滴滴", sign: "￥", category: "income" },
+    const refIncomeTags = ref<Tag[]>([
+      // { id: 4, name: "工资", sign: "￥", category: "income" },
+      // { id: 5, name: "彩票", sign: "￥", category: "income" },
+      // { id: 6, name: "滴滴", sign: "￥", category: "income" },
+      // { id: 11, name: "彩票", sign: "￥", category: "income" },
     ]);
-    // const addSvg = () =>{
-    //   console.log('3333')
-    // }
+
     return () => (
       <div>
         <MainLayout class={s.layout}>
@@ -74,28 +55,17 @@ export const ItemCreate = defineComponent({
             title: () => "记一笔",
             default: () => (
               <>
-                {/* <Tabs
-                  v-model:selected={refKind.value}
-                >
-                  <Tab name="支出">
-                    icon 列表
-                  </Tab>
-                  <Tab name="收入">
-                    icon 列表2
-                  </Tab>
-                </Tabs>
-                <div class={s.inputPad_wrapper}>
-                  <InputPad /> */}
                 <div class={s.wrapper}>
                   <Tabs v-model:selected={refKind.value} class={s.tabs}>
                     <Tab name="支出" class={s.tags_wrapper}>
                       <div class={s.tag}>
                         <RouterLink to="/tags/create">
+                        {/* <RouterLink to={{path:'/tags/create', query:{ }}}> */}
                           <div class={s.sign}>
                             <Icon name="add" class={s.createTag} />
                           </div>
-                        </RouterLink>
                         <div class={s.name}>新增1</div>
+                        </RouterLink>
                       </div>
                       {refExpensesTags.value.map((tag) => (
                         <div class={[s.tag, s.selected]}>
@@ -106,12 +76,13 @@ export const ItemCreate = defineComponent({
                     </Tab>
                     <Tab name="收入" class={s.tags_wrapper}>
                       <div class={s.tag}>
-                        <RouterLink to="/tags/create">
+                        <RouterLink to={{path:'/tags/create'}}>
+                        {/* <RouterLink to="/tags/create"> */}
                           <div class={s.sign}>
                             <Icon name="add" class={s.createTag} />
                           </div>
+                          <div class={s.name}>新增</div>
                         </RouterLink>
-                        <div class={s.name}>新增</div>
                       </div>
                       {refIncomeTags.value.map((tag) => (
                         <div class={[s.tag, s.selected]}>

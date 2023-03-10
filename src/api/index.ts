@@ -1,5 +1,22 @@
 import axios from "axios";
 
+
+/**
+ *  设置 Token
+ */
+
+export const setToken = (token:string) =>{
+  localStorage.setItem('token',token)
+}
+
+/**
+ *  获取 Token
+ */
+
+export const getToken = () =>{
+  return localStorage.getItem('token')
+} 
+
 /**
  * 创建axios实例
  */
@@ -40,12 +57,11 @@ service.interceptors.response.use(
   function (error) {
     // 超出 2xx 范围的状态码都会触发该函数。
     // 对响应错误做点什么
-    console.log('error----',error.response.status)
     return Promise.reject(error).catch((error) => {
       if (error.response.status === 422) {
+        // setToken("");
         alert("请输入正确的用户名和密码");
-        // router.push('/login');
-      }
+      }else{}
     });
   }
 );

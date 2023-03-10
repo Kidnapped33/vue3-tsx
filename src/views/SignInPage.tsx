@@ -5,8 +5,9 @@ import { Form, FormItem } from "../shared/Form";
 import { Icon } from "../shared/Icon";
 import { validate } from "../shared/validate";
 import s from "./SignInPage.module.scss";
-import service from "../api";
+import service, { setToken } from "../api";
 import { emailSignIn, IdentityType } from "../api/watermelon/api";
+import { router } from "../main";
 
 export const SignInPage = defineComponent({
   setup: (props, context) => {
@@ -26,39 +27,39 @@ export const SignInPage = defineComponent({
         email: formData.email,
         code: formData.code,
       };
+
+      /**  输入错误后，再次输入正确的值，需要让错误信息消失  */
+      Object.assign(errors, { email: [], code: [] });
+
+      /** 验证结果 */
+      const validateResult = validate(formData, [
+        { key: "email", type: "required", message: "必填" },
+        {
+          key: "email",
+          type: "pattern",
+          regex: /.+@.+/,
+          message: "必须是邮箱地址",
+        },
+        { key: "code", type: "required", message: "必填" },
+      ]);
+
+      Object.assign(errors, validateResult);
+
+      // console.log("验证1", Object.keys(validateResult).length === 0);
+      // console.log("验证2", Object.getOwnPropertyNames(validateResult).length === 0);
+      // console.log("验证3", JSON.stringify(validateResult)  === "{}");
+
+      if (!(Object.keys(validateResult).length === 0)) return;
+
       const res = await emailSignIn(data);
 
-      // 获取 token
       if (res.data.jwt) {
-        localStorage.setItem("token", res.data.jwt);
-        // .push("/home");
-        // router.push("/home");
-        // const token = localStorage.getItem("token");
+        setToken(res.data.jwt);
+        router.push({ path: "/welcome" })
       }else{
+        /**在 index.js catch 了，不走这里 */
         console.log("登录失败，请重试");
       }
-
-      console.log("jwt======", res.data.jwt);
-
-      // admin@Ghosteye.com
-      // 123456
-      // service.post("/api/v1/auth/emailSignIn", data).then((res) => {
-      //   console.log("res======", res);
-      // });
-      Object.assign(errors, { email: [], code: [] });
-      Object.assign(
-        errors,
-        validate(formData, [
-          { key: "email", type: "required", message: "必填" },
-          {
-            key: "email",
-            type: "pattern",
-            regex: /.+@.+/,
-            message: "必须是邮箱地址",
-          },
-          { key: "code", type: "required", message: "必填" },
-        ])
-      );
     };
     return () => (
       <MainLayout>

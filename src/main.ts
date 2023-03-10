@@ -7,7 +7,7 @@ import { history } from "./shared/history";
 import '@svgstore';
 // import './assets/stylesheets/vars.scss';
 
-const router = createRouter({ history, routes });
+export const router = createRouter({ history, routes });
 
 const app = createApp(App);
 app.use(router);

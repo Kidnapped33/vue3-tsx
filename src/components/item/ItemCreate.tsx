@@ -13,12 +13,6 @@ export const ItemCreate = defineComponent({
     },
   },
   setup: (props, context) => {
-    // interface Tag {
-    //   id: number;
-    //   name: string;
-    //   sign: string;
-    //   category: string;
-    // }
 
     enum RefKind {
       expenses = "expenses", // 支出
@@ -27,23 +21,21 @@ export const ItemCreate = defineComponent({
 
     const refKind = ref<RefKind>(RefKind.expenses);
 
-    
-    // const refExpensesTags = ref<Tag[]>([
-    //   { id: 1, name: "餐饮", sign: "🍔", category: "expenses" },
-    //   { id: 2, name: "打车", sign: "￥", category: "expenses" },
-    //   { id: 3, name: "聚餐", sign: "￥", category: "expenses" },
-    //   { id: 4, name: "打车", sign: "￥", category: "expenses" },
-    //   { id: 5, name: "聚餐", sign: "￥", category: "expenses" },
-    //   { id: 6, name: "打车", sign: "￥", category: "expenses" },
-    //   { id: 7, name: "聚餐", sign: "￥", category: "expenses" },
-    // ]);
-    // const refIncomeTags = ref<Tag[]>([
-    //   // { id: 4, name: "工资", sign: "￥", category: "income" },
-    //   // { id: 5, name: "彩票", sign: "￥", category: "income" },
-    //   // { id: 6, name: "滴滴", sign: "￥", category: "income" },
-    //   // { id: 11, name: "彩票", sign: "￥", category: "income" },
-    // ]);
+    interface Tag {
+      // id: number;
+      name: string;
+      sign: string;
+      kind: string;
+    }
 
+    const expensesData = ref<Tag[]>([
+      // { name: "餐饮", sign: "🍔", kind: "expenses" }
+    ])
+    const incomeData = ref<Tag[]>([
+      // { name: "222", sign: "🍔", kind: "income" }
+    ])
+
+  
     return () => (
       <div>
         <MainLayout class={s.layout}>
@@ -59,10 +51,10 @@ export const ItemCreate = defineComponent({
                 <div class={s.wrapper}>
                   <Tabs v-model:selected={refKind.value} class={s.tabs}>
                     <Tab name={RefKind.expenses}>
-                      <Tags kind={refKind.value}/>
+                      <Tags kind={refKind.value} tagsData={expensesData.value}/>
                     </Tab>
                     <Tab name={RefKind.income}>
-                      <Tags kind={refKind.value}/>
+                      <Tags kind={refKind.value} tagsData={incomeData.value}/>
                     </Tab>
                   </Tabs>
                   <div class={s.inputPad_wrapper}>

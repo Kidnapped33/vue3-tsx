@@ -28,7 +28,6 @@ const service = axios.create({
   // baseURL: "",
   timeout: 1000,
   //headers: {'X-Custom-Header': 'foobar'}
-  //Authorization: 'Bearer ' + token
 });
 
 /**
@@ -36,7 +35,14 @@ const service = axios.create({
  */
 service.interceptors.request.use(
   function (config) {
-    // 在发送请求之前做些什么
+
+  // 在发送请求之前做些什么
+
+   // 1. 从 localStorage 中获取 token
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
   function (error) {
@@ -58,7 +64,7 @@ service.interceptors.response.use(
     // 超出 2xx 范围的状态码都会触发该函数。
     // 对响应错误做点什么
     return Promise.reject(error).catch((error) => {
-      if (error.response.status === 422) {
+      if (error.response?.status === 422) {
         // setToken("");
         alert("请输入正确的用户名和密码");
       }else{}

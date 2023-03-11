@@ -39,16 +39,16 @@ export const ItemCreate = defineComponent({
 
     onMounted(
         async () => {
-          const res = await getTags({page:1,kind:'expenses'})
-          console.log('expenses-------',res.data)
-      }
+          const expensesList = await getTags({page:1,kind:'expenses'})
+          expensesData.value = expensesList?.data?.resources
+      },
     )
 
     onMounted(
         async () => {
-          const res = await getTags({page:1,kind:'income'})
-          console.log('income-------',res.data)
-      }
+          const incomeList = await getTags({page:1,kind:'income'})
+          incomeData.value = incomeList?.data?.resources
+      },
     )
   
     return () => (

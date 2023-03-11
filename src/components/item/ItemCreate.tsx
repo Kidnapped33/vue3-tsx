@@ -21,8 +21,8 @@ export const ItemCreate = defineComponent({
     // }
 
     enum RefKind {
-      expenses = "支出", // 支出
-      income = "收入", // 收入
+      expenses = "expenses", // 支出
+      income = "income", // 收入
     }
 
     const refKind = ref<RefKind>(RefKind.expenses);
@@ -58,10 +58,10 @@ export const ItemCreate = defineComponent({
               <>
                 <div class={s.wrapper}>
                   <Tabs v-model:selected={refKind.value} class={s.tabs}>
-                    <Tab name="支出">
+                    <Tab name={RefKind.expenses}>
                       <Tags kind={refKind.value}/>
                     </Tab>
-                    <Tab name="收入">
+                    <Tab name={RefKind.income}>
                       <Tags kind={refKind.value}/>
                     </Tab>
                   </Tabs>

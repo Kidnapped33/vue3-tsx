@@ -18,6 +18,11 @@ export const Tabs = defineComponent({
   },
   emits: ["update:selected"],
   setup: (props, context) => {
+    type Kind = keyof typeof kind;
+    const kind =  {
+      expenses: "支出",
+      income: "收入", 
+    }
     return () => {
       const tabs = context.slots.default?.();
       if (!tabs) return () => null;
@@ -35,7 +40,7 @@ export const Tabs = defineComponent({
                 class={[tab.props?.name === props?.selected ? [s.selected, cp + '_selected'] : "",  cp + '_tabs_nav_item']}
                 onClick={() => context.emit("update:selected", tab.props?.name)}
               >
-                {tab.props?.name}
+                {kind[(tab.props!.name as Kind)]}
               </li>
             ))}
           </ol>
@@ -50,7 +55,10 @@ export const Tabs = defineComponent({
 
 export const Tab = defineComponent({
   props: {
-    name: String as PropType<string>,
+    name: {
+      type:String as PropType<string>,
+      required: true,
+    },
   },
   emits: ["update:selected"],
   setup: (props, context) => {

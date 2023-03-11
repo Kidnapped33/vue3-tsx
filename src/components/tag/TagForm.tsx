@@ -1,7 +1,5 @@
 import { defineComponent, onMounted, reactive, ref } from "vue";
-import service from "../../api";
 import { Button } from "../../shared/Button";
-import { EmojiSelect } from "../../shared/EmojiSelect";
 import { Form, FormItem } from "../../shared/Form";
 import { Rules, validate } from "../../shared/validate";
 import s from "./Tag.module.scss";

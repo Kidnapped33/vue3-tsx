@@ -30,6 +30,33 @@ export const emailSignIn = async (data: LoginData) => {
 // }
 
 /**
+ * 获取用户信息
+ */
+
+
+
+
+
+/**
+ * 获取标签列表
+ */
+
+interface TagList {
+  //页码
+  page: number;
+  //类型
+  kind: string;
+}
+
+export const getTags = async (data: TagList) => {
+  return await service({
+    url: "/v1/tags",
+    method: "get",
+    data,
+  });
+};
+
+/**
  *  创建标签
  */
 interface Tag {

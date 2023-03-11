@@ -1,4 +1,4 @@
-import { defineComponent, PropType, ref } from "vue";
+import { defineComponent, onMounted, PropType, ref } from "vue";
 import { RouterLink, RouterView } from "vue-router";
 import { MainLayout } from "../../layouts/MainLayout";
 import { Icon } from "../../shared/Icon";
@@ -6,6 +6,8 @@ import { Tab, Tabs } from "../../shared/Tabs";
 import { Tags } from "../../shared/Tags";
 import { InputPad } from "./InputPad";
 import s from "./ItemCreate.module.scss";
+import { getTags } from "../../api/watermelon/api";
+
 export const ItemCreate = defineComponent({
   props: {
     name: {
@@ -35,6 +37,19 @@ export const ItemCreate = defineComponent({
       // { name: "222", sign: "🍔", kind: "income" }
     ])
 
+    onMounted(
+        async () => {
+          const res = await getTags({page:1,kind:'expenses'})
+          console.log('expenses-------',res.data)
+      }
+    )
+
+    onMounted(
+        async () => {
+          const res = await getTags({page:1,kind:'income'})
+          console.log('income-------',res.data)
+      }
+    )
   
     return () => (
       <div>

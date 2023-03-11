@@ -56,7 +56,7 @@ export const SignInPage = defineComponent({
 
       const res = await emailSignIn(data);
 
-      if (res.data.jwt) {
+      if (res.data?.jwt) {
         setToken(res.data.jwt);
         router.push({ path: "/welcome" })
       }else{

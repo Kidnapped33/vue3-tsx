@@ -40,14 +40,14 @@ export const ItemCreate = defineComponent({
     onMounted(
         async () => {
           const expensesList = await getTags({page:1,kind:'expenses'})
-          expensesData.value = expensesList?.data?.resources
+          expensesData.value = expensesList?.data?.resources?.filter((item:Tag)=>item.kind==='expenses')
       },
     )
 
     onMounted(
         async () => {
           const incomeList = await getTags({page:1,kind:'income'})
-          incomeData.value = incomeList?.data?.resources
+          incomeData.value = incomeList?.data?.resources?.filter((item:Tag)=>item.kind==='income')
       },
     )
   

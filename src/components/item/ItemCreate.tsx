@@ -30,26 +30,21 @@ export const ItemCreate = defineComponent({
       kind: string;
     }
 
-    const expensesData = ref<Tag[]>([
+    const expensesList = ref<Tag[]>([
       // { name: "餐饮", sign: "🍔", kind: "expenses" }
     ])
-    const incomeData = ref<Tag[]>([
+    const incomeList = ref<Tag[]>([
       // { name: "222", sign: "🍔", kind: "income" }
     ])
 
     onMounted(
         async () => {
-          const expensesList = await getTags({page:1,kind:'expenses'})
-          expensesData.value = expensesList?.data?.resources?.filter((item:Tag)=>item.kind==='expenses')
+          const allList = await getTags({page:1})
+          expensesList.value = allList?.data?.resources?.filter((item:Tag)=>item.kind==='expenses')
+          incomeList.value = allList?.data?.resources?.filter((item:Tag)=>item.kind==='income')
       },
     )
 
-    onMounted(
-        async () => {
-          const incomeList = await getTags({page:1,kind:'income'})
-          incomeData.value = incomeList?.data?.resources?.filter((item:Tag)=>item.kind==='income')
-      },
-    )
   
     return () => (
       <div>
@@ -66,10 +61,10 @@ export const ItemCreate = defineComponent({
                 <div class={s.wrapper}>
                   <Tabs v-model:selected={refKind.value} class={s.tabs}>
                     <Tab name={RefKind.expenses}>
-                      <Tags kind={refKind.value} tagsData={expensesData.value}/>
+                      <Tags kind={refKind.value} tagsData={expensesList.value}/>
                     </Tab>
                     <Tab name={RefKind.income}>
-                      <Tags kind={refKind.value} tagsData={incomeData.value}/>
+                      <Tags kind={refKind.value} tagsData={incomeList.value}/>
                     </Tab>
                   </Tabs>
                   <div class={s.inputPad_wrapper}>

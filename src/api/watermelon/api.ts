@@ -45,7 +45,7 @@ interface TagList {
   //页码
   page: number;
   //类型
-  kind: string;
+  kind?: string;
 }
 
 export const getTags = async (data: TagList) => {

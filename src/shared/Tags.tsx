@@ -15,7 +15,7 @@ export const Tags = defineComponent({
         name: string;
         sign: string;
         kind: string;
-      }[]>,
+      }[]> | undefined,
       required: true
     },
   },

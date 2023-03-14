@@ -40,8 +40,8 @@ export const ItemCreate = defineComponent({
     onMounted(
         async () => {
           const allList = await getTags({page:1})
-          expensesList.value = allList?.data?.resources?.filter((item:Tag)=>item.kind==='expenses')
-          incomeList.value = allList?.data?.resources?.filter((item:Tag)=>item.kind==='income')
+          expensesList.value = allList?.data?.resources?.filter((item:Tag)=>item.kind==='expenses') || []
+          incomeList.value = allList?.data?.resources?.filter((item:Tag)=>item.kind==='income') || []
       },
     )
 

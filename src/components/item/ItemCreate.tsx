@@ -44,8 +44,14 @@ export const ItemCreate = defineComponent({
           incomeList.value = allList?.data?.resources?.filter((item:Tag)=>item.kind==='income') || []
       },
     )
+    // TagId
+    const refTagId = ref<number>()
 
-  
+    // 金额
+    const refAmount = ref<number>()
+    // 日期
+    const refHappen_at = ref<string>(new Date().toISOString())
+
     return () => (
       <div>
         <MainLayout class={s.layout}>
@@ -61,14 +67,18 @@ export const ItemCreate = defineComponent({
                 <div class={s.wrapper}>
                   <Tabs v-model:selected={refKind.value} class={s.tabs}>
                     <Tab name={RefKind.expenses}>
-                      <Tags kind={refKind.value} tagsData={expensesList.value}/>
+                      <Tags kind={refKind.value} tagsData={expensesList.value} v-model:selected={refTagId.value}/>
                     </Tab>
                     <Tab name={RefKind.income}>
-                      <Tags kind={refKind.value} tagsData={incomeList.value}/>
+                      <Tags kind={refKind.value} tagsData={incomeList.value} v-model:selected={refTagId.value}/>
                     </Tab>
                   </Tabs>
                   <div class={s.inputPad_wrapper}>
-                    <InputPad />
+                    {refKind.value}
+                    {refTagId.value}
+                    {refAmount.value}
+                    {refHappen_at.value}
+                    <InputPad v-model:amount={refAmount.value} v-model:happenAt={refHappen_at.value}/>
                   </div>
                 </div>
               </>

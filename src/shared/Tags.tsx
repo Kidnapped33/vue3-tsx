@@ -11,29 +11,22 @@ export const Tags = defineComponent({
     },
     tagsData:{
       type: Array as PropType<{
-        // id: number;
+        id?: number;
         name: string;
         sign: string;
         kind: string;
       }[]>,
       required: true
     },
+    selected: Number
   },
+  emits:['update:selected'],
   setup: (props, context) => {
-    // interface Tag {
-    //   // id: number;
-    //   name: string;
-    //   sign: string;
-    //   kind: string;
-    // }
-
-    /**refExpensesTags /  refIncomeTags*/
-    // const refTags = ref<Tag[]>([
-      // { name: "餐饮", sign: "🍔", kind: "expenses" }
-    // ]);
-
-    // refTags.value = computed(() => props.tagsData as Tag[])
-
+    const tagId = ref<number>()
+    const selectChange = (tag: any)=> {
+      // tagId.value=tag.id
+      context.emit('update:selected',tag.id)
+    }
 
     return () => (
       <div class={s.tags_wrapper}>
@@ -47,7 +40,7 @@ export const Tags = defineComponent({
           </RouterLink>
         </div>
         {props.tagsData?.map((tag) => (
-          <div class={[s.tag, s.selected]}>
+          <div class={[s.tag,   props.selected === tag.id && s.selected]} onClick={()=>selectChange(tag)}>
             <div class={s.sign}>{tag.sign}</div>
             <div class={s.name}>{tag.name}</div>
           </div>

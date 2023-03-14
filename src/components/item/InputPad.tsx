@@ -7,11 +7,11 @@ import 'vant/es/datetime-picker/style';
 
 export const InputPad = defineComponent({
   props: {
-    name: {
-      type: String as PropType<String>,
-    },
+    happenAt:String,
+    amount:Number,
   },
-  setup: () => {
+  emits:['amount','happenAt'],
+  setup: (props,context) => {
     const now = new Date();
     const refDate = ref<Date>(now);
     // const refDate = ref<Date>(new Date())
@@ -53,6 +53,7 @@ export const InputPad = defineComponent({
         return (refAmount.value += n.toString());
       }
     };
+    
     const buttons = [
       { text: "1",onClick: () => { appendText(1)}},
       { text: "2",onClick: () => { appendText(2)}},
@@ -66,24 +67,24 @@ export const InputPad = defineComponent({
       { text: ".",onClick: () => { appendText(".")}},
       { text: "0",onClick: () => { appendText(0)}},
       { text: "清空", onClick: () => { refAmount.value = '0'}},
-      { text: "提交", onClick: () => { 
-        /**
-         * 如果为0， 提示输入金额
-         */
-        if(refAmount.value === '0') {alert('花了多少钱呀？')}
-        console.log("提交" + refAmount.value)
-      }
-    },
+      { text: "提交", onClick: () => context.emit('update:amount',
+      parseFloat(refAmount.value) * 100)},
     ];
+       /*{"amount":9900,
+       "kind":"expenses",
+       "happen_at":"2020-10-30T00:00:00+08:00",
+       "tag_ids":[3536,3537]}
+       */
 
     const refDatePickerVisible = ref(false);
     const showDatePicker = () => (refDatePickerVisible.value = true);
     const hideDatePicker = () => (refDatePickerVisible.value = false);
+
     const setDate = (date: Date) => {
-      refDate.value = date;
+      context.emit('update:happenAt', date.toISOString());
       hideDatePicker();
     };
-    const refAmount = ref("0");
+    const refAmount = ref(props.amount ? (props.amount / 100).toString() : '0');
     return () => (
       <>
         <div class={s.dateAndAmount}>
@@ -92,14 +93,15 @@ export const InputPad = defineComponent({
             <span>
               <span onClick={showDatePicker}>
                 {/* { new Time(refDate.value).format() } */}
-                { new Time(refDate.value).firstDayOfMonth().format()}
+                {/* { new Time(refDate.value).firstDayOfMonth().format()} */}
+                { new Time(props.happenAt).firstDayOfMonth().format()}
               </span>
               <Popup
                 position="bottom"
                 v-model:show={refDatePickerVisible.value}
               >
                 <DatetimePicker
-                  value={refDate.value}
+                  value={props.happenAt}
                   type="date"
                   title="选择年月日"
                   onConfirm={setDate}

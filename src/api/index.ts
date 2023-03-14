@@ -67,7 +67,11 @@ service.interceptors.response.use(
       if (error.response?.status === 422) {
         // setToken("");
         alert("请输入正确的用户名和密码");
-      }else{}
+      }else if(error.response?.status === 401){
+        alert("需要重新登录");
+      }else{
+
+      }
     });
   }
 );

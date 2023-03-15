@@ -33,10 +33,6 @@ export const emailSignIn = async (data: LoginData) => {
  * 获取用户信息
  */
 
-
-
-
-
 /**
  * 获取标签列表
  */
@@ -68,6 +64,28 @@ interface Tag {
   kind: string;
 }
 export const createTag = async (data: Tag) => {
+  return await service({
+    url: "/v1/tags",
+    method: "post",
+    data,
+  });
+};
+
+/**
+ * 创建账目
+ */
+
+interface recordItem {
+  // 金额（单位：分）
+  amount: string;
+  // 类型
+  kind: string;
+  // 发生时间
+  happen_at: string;
+  tag_ids: string;
+}
+
+export const addRecordItem = async (data:recordItem) => {
   return await service({
     url: "/v1/tags",
     method: "post",

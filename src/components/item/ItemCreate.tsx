@@ -1,4 +1,4 @@
-import { defineComponent, onMounted, PropType, ref } from "vue";
+import { defineComponent, onMounted, PropType, reactive, ref } from "vue";
 import { RouterLink, RouterView } from "vue-router";
 import { MainLayout } from "../../layouts/MainLayout";
 import { Icon } from "../../shared/Icon";
@@ -6,7 +6,7 @@ import { Tab, Tabs } from "../../shared/Tabs";
 import { Tags } from "../../shared/Tags";
 import { InputPad } from "./InputPad";
 import s from "./ItemCreate.module.scss";
-import { getTags } from "../../api/watermelon/api";
+import { addRecordItem, getTags } from "../../api/watermelon/api";
 
 export const ItemCreate = defineComponent({
   props: {
@@ -15,13 +15,6 @@ export const ItemCreate = defineComponent({
     },
   },
   setup: (props, context) => {
-    enum RefKind {
-      expenses = "expenses", // 支出
-      income = "income", // 收入
-    }
-
-    const refKind = ref<RefKind>(RefKind.expenses);
-
     interface Tag {
       // id: number;
       name: string;
@@ -47,22 +40,30 @@ export const ItemCreate = defineComponent({
           (item: Tag) => item.kind === "income"
         ) || [];
     });
-    // TagId
-    const refTagId = ref<number>();
 
-    // 金额
-    const refAmount = ref<number>();
-    // 日期
-    const refHappen_at = ref<string>(new Date().toISOString());
+    enum RefKind {
+      expenses = "expenses", // 支出
+      income = "income", // 收入
+    }
 
-    const addItem = () => {
+    const formData = reactive({
+      refKind: RefKind.expenses,
+      refTagId: undefined,
+      refAmount: 0,
+      refHappenAt: new Date().toISOString(),
+    });
+
+    const onSubmit = async () => {
+      // e.preventDefault();
+      if (!formData.refTagId) return alert("please chose tag");
       const data = {
-        amount: refAmount.value ? refAmount.value / 100 : "0",
-        kind: refKind.value,
-        happen_at: refHappen_at.value,
-        tag_ids: [refTagId.value],
+        amount: formData.refAmount,
+        kind: formData.refKind,
+        happen_at: formData.refHappenAt,
+        tag_ids: [formData.refTagId],
       };
-      console.log("添加记账：", data);
+      const res = await addRecordItem(data);
+      if (res) alert("添加成功");
     };
 
     return () => (
@@ -78,30 +79,31 @@ export const ItemCreate = defineComponent({
             default: () => (
               <>
                 <div class={s.wrapper}>
-                  <Tabs v-model:selected={refKind.value} class={s.tabs}>
+                  <Tabs v-model:selected={formData.refKind} class={s.tabs}>
                     <Tab name={RefKind.expenses}>
                       <Tags
-                        kind={refKind.value}
+                        kind={formData.refKind}
                         tagsData={expensesList.value}
-                        v-model:selected={refTagId.value}
+                        v-model:selected={formData.refTagId}
                       />
                     </Tab>
                     <Tab name={RefKind.income}>
                       <Tags
-                        kind={refKind.value}
+                        kind={formData.refKind}
                         tagsData={incomeList.value}
-                        v-model:selected={refTagId.value}
+                        v-model:selected={formData.refTagId}
                       />
                     </Tab>
                   </Tabs>
                   <div class={s.inputPad_wrapper}>
-                    {refAmount.value ? refAmount.value / 100 : "0"}
-                    {refKind.value}
-                    {refHappen_at.value}
-                    {refTagId.value}
+                    {formData.refAmount ? formData.refAmount / 100 : "0"}
+                    {formData.refKind}
+                    {formData.refHappenAt}
+                    {formData.refTagId}
                     <InputPad
-                      v-model:amount={refAmount.value}
-                      v-model:happenAt={refHappen_at.value}
+                      v-model:amount={formData.refAmount}
+                      v-model:happenAt={formData.refHappenAt}
+                      onSubmit={onSubmit}
                     />
                   </div>
                 </div>

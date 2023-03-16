@@ -77,17 +77,18 @@ export const createTag = async (data: Tag) => {
 
 interface recordItem {
   // 金额（单位：分）
-  amount: string;
+  amount: number;
   // 类型
   kind: string;
   // 发生时间
   happen_at: string;
-  tag_ids: string;
+  // 标签列表（只传ID）
+  tag_ids: number[];
 }
 
 export const addRecordItem = async (data:recordItem) => {
   return await service({
-    url: "/v1/tags",
+    url: "/v1/items",
     method: "post",
     data,
   });

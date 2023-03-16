@@ -86,10 +86,30 @@ interface recordItem {
   tag_ids: number[];
 }
 
-export const addRecordItem = async (data:recordItem) => {
+export const addRecordItem = async (data: recordItem) => {
   return await service({
     url: "/v1/items",
     method: "post",
+    data,
+  });
+};
+
+/**
+ * 统计信息（按happen_at分组）
+ */
+
+interface staticMenuData {
+  //页码
+  page: number;
+  //时间起点
+  happened_after: string;
+  //时间终点
+  happened_before: string;
+}
+export const staticMenu = async (data:staticMenuData) => {
+  return await service({
+    url: "/v1/items",
+    method: "get",
     data,
   });
 };

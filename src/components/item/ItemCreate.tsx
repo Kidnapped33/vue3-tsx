@@ -42,8 +42,10 @@ export const ItemCreate = defineComponent({
     });
 
     enum RefKind {
-      expenses = "expenses", // 支出
-      income = "income", // 收入
+      // expenses = "expenses", // 支出
+      // income = "income", // 收入
+      expenses = "支出", // 支出
+      income = "收入", // 收入
     }
 
     const formData = reactive({
@@ -58,7 +60,7 @@ export const ItemCreate = defineComponent({
       if (!formData.refTagId) return alert("please chose tag");
       const data = {
         amount: formData.refAmount,
-        kind: formData.refKind,
+        kind: formData.refKind === "支出" ? "expenses" : "income",
         happen_at: formData.refHappenAt,
         tag_ids: [formData.refTagId],
       };
@@ -96,10 +98,6 @@ export const ItemCreate = defineComponent({
                     </Tab>
                   </Tabs>
                   <div class={s.inputPad_wrapper}>
-                    {formData.refAmount ? formData.refAmount / 100 : "0"}
-                    {formData.refKind}
-                    {formData.refHappenAt}
-                    {formData.refTagId}
                     <InputPad
                       v-model:amount={formData.refAmount}
                       v-model:happenAt={formData.refHappenAt}

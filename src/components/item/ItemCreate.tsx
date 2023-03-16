@@ -15,7 +15,6 @@ export const ItemCreate = defineComponent({
     },
   },
   setup: (props, context) => {
-
     enum RefKind {
       expenses = "expenses", // 支出
       income = "income", // 收入
@@ -32,25 +31,39 @@ export const ItemCreate = defineComponent({
 
     const expensesList = ref<Tag[]>([
       // { name: "餐饮", sign: "🍔", kind: "expenses" }
-    ])
+    ]);
     const incomeList = ref<Tag[]>([
       // { name: "222", sign: "🍔", kind: "income" }
-    ])
+    ]);
 
-    onMounted(
-        async () => {
-          const allList = await getTags({page:1})
-          expensesList.value = allList?.data?.resources?.filter((item:Tag)=>item.kind==='expenses') || []
-          incomeList.value = allList?.data?.resources?.filter((item:Tag)=>item.kind==='income') || []
-      },
-    )
+    onMounted(async () => {
+      const allList = await getTags({ page: 1 });
+      expensesList.value =
+        allList?.data?.resources?.filter(
+          (item: Tag) => item.kind === "expenses"
+        ) || [];
+      incomeList.value =
+        allList?.data?.resources?.filter(
+          (item: Tag) => item.kind === "income"
+        ) || [];
+    });
     // TagId
-    const refTagId = ref<number>()
+    const refTagId = ref<number>();
 
     // 金额
-    const refAmount = ref<number>()
+    const refAmount = ref<number>();
     // 日期
-    const refHappen_at = ref<string>(new Date().toISOString())
+    const refHappen_at = ref<string>(new Date().toISOString());
+
+    const addItem = () => {
+      const data = {
+        amount: refAmount.value ? refAmount.value / 100 : "0",
+        kind: refKind.value,
+        happen_at: refHappen_at.value,
+        tag_ids: [refTagId.value],
+      };
+      console.log("添加记账：", data);
+    };
 
     return () => (
       <div>
@@ -67,18 +80,29 @@ export const ItemCreate = defineComponent({
                 <div class={s.wrapper}>
                   <Tabs v-model:selected={refKind.value} class={s.tabs}>
                     <Tab name={RefKind.expenses}>
-                      <Tags kind={refKind.value} tagsData={expensesList.value} v-model:selected={refTagId.value}/>
+                      <Tags
+                        kind={refKind.value}
+                        tagsData={expensesList.value}
+                        v-model:selected={refTagId.value}
+                      />
                     </Tab>
                     <Tab name={RefKind.income}>
-                      <Tags kind={refKind.value} tagsData={incomeList.value} v-model:selected={refTagId.value}/>
+                      <Tags
+                        kind={refKind.value}
+                        tagsData={incomeList.value}
+                        v-model:selected={refTagId.value}
+                      />
                     </Tab>
                   </Tabs>
                   <div class={s.inputPad_wrapper}>
+                    {refAmount.value ? refAmount.value / 100 : "0"}
                     {refKind.value}
-                    {refTagId.value}
-                    {refAmount.value}
                     {refHappen_at.value}
-                    <InputPad v-model:amount={refAmount.value} v-model:happenAt={refHappen_at.value}/>
+                    {refTagId.value}
+                    <InputPad
+                      v-model:amount={refAmount.value}
+                      v-model:happenAt={refHappen_at.value}
+                    />
                   </div>
                 </div>
               </>

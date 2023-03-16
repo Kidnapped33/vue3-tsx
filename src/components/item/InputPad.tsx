@@ -10,7 +10,7 @@ export const InputPad = defineComponent({
     happenAt:String,
     amount:Number,
   },
-  emits:['amount','happenAt'],
+  emits:['update:amount','update:happenAt'],
   setup: (props,context) => {
     const now = new Date();
     const refDate = ref<Date>(now);
@@ -67,8 +67,9 @@ export const InputPad = defineComponent({
       { text: ".",onClick: () => { appendText(".")}},
       { text: "0",onClick: () => { appendText(0)}},
       { text: "清空", onClick: () => { refAmount.value = '0'}},
-      { text: "提交", onClick: () => context.emit('update:amount',
-      parseFloat(refAmount.value) * 100)},
+      { text: "提交", onClick: () => {
+        context.emit('update:amount',parseFloat(refAmount.value) * 100)
+      }},
     ];
        /*{"amount":9900,
        "kind":"expenses",

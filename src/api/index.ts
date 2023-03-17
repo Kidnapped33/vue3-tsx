@@ -70,7 +70,7 @@ service.interceptors.response.use(
       }else if(error.response?.status === 401){
         alert("需要重新登录");
       }else{
-
+        alert(error);
       }
     });
   }

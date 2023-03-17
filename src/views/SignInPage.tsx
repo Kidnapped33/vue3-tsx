@@ -1,4 +1,4 @@
-import { defineComponent, reactive } from "vue";
+import { defineComponent, reactive, ref } from "vue";
 import { MainLayout } from "../layouts/MainLayout";
 import { Button } from "../shared/Button";
 import { Form, FormItem } from "../shared/Form";
@@ -13,6 +13,8 @@ export const SignInPage = defineComponent({
   setup: (props, context) => {
     const router = useRouter();
 
+    const refValidationCode =ref<any>()
+
     const formData = reactive({
       email: "1@qq.com",
       code: "123456",
@@ -24,7 +26,8 @@ export const SignInPage = defineComponent({
     });
 
     const onSubmit = async (e: Event) => {
-      e.preventDefault();
+      // e.preventDefault();
+      console.log(123)
 
       const data = {
         email: formData.email,
@@ -70,6 +73,8 @@ export const SignInPage = defineComponent({
     const sendSixCode = async () => {
       const res = await sendVerificationCode(formData.email);
       console.log("res", res);
+      if(res){refValidationCode.value.startCount()}
+      
     };
     return () => (
       <MainLayout>
@@ -90,7 +95,7 @@ export const SignInPage = defineComponent({
                   v-model={formData.email}
                   error={errors.email?.[0] ? errors.email?.[0] : "　"}
                 ></FormItem>
-                <FormItem
+                <FormItem ref={refValidationCode}
                   label="验证码"
                   type="validationCode"
                   placeholder="请输入六位数字"
@@ -99,7 +104,7 @@ export const SignInPage = defineComponent({
                   error={errors.code?.[0] ? errors.code?.[0] : "　"}
                 ></FormItem>
                 <FormItem style={{ paddingTop: "96px" }}>
-                  <Button >登录</Button>
+                  <Button>登录</Button>
                 </FormItem>
               </Form>
             </div>

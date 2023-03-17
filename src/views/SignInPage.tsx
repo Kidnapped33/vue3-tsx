@@ -64,6 +64,10 @@ export const SignInPage = defineComponent({
         console.log("登录失败，请重试");
       }
     };
+
+    const sendxxx = () => {
+      console.log('点击了发送验证码')
+    };
     return () => (
       <MainLayout>
         {{
@@ -88,6 +92,7 @@ export const SignInPage = defineComponent({
                   type="validationCode"
                   placeholder="请输入六位数字"
                   v-model={formData.code}
+                  onClick={sendxxx}
                   error={errors.code?.[0] ? errors.code?.[0] : "　"}
                 ></FormItem>
                 <FormItem style={{ paddingTop: "96px" }}>

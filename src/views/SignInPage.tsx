@@ -6,13 +6,12 @@ import { Icon } from "../shared/Icon";
 import { validate } from "../shared/validate";
 import s from "./SignInPage.module.scss";
 import service, { setToken } from "../api";
-import { emailSignIn } from "../api/watermelon/api";
+import { emailSignIn, sendVerificationCode } from "../api/watermelon/api";
 import { useRouter } from "vue-router";
 
 export const SignInPage = defineComponent({
   setup: (props, context) => {
-    
-    const router = useRouter()
+    const router = useRouter();
 
     const formData = reactive({
       email: "1@qq.com",
@@ -26,6 +25,7 @@ export const SignInPage = defineComponent({
 
     const onSubmit = async (e: Event) => {
       e.preventDefault();
+
       const data = {
         email: formData.email,
         code: formData.code,
@@ -58,15 +58,18 @@ export const SignInPage = defineComponent({
 
       if (res.data?.jwt) {
         setToken(res.data.jwt);
-        router.push({ path: "/welcome" })
-      }else{
+        // router.push({ path: "/welcome" })
+      } else {
         /**在 index.js catch 了，不走这里 */
         console.log("登录失败，请重试");
       }
     };
 
-    const sendxxx = () => {
-      console.log('点击了发送验证码')
+    /**点击发送验证码 */
+
+    const sendSixCode = async () => {
+      const res = await sendVerificationCode(formData.email);
+      console.log("res", res);
     };
     return () => (
       <MainLayout>
@@ -92,7 +95,7 @@ export const SignInPage = defineComponent({
                   type="validationCode"
                   placeholder="请输入六位数字"
                   v-model={formData.code}
-                  onClick={sendxxx}
+                  onClick={sendSixCode}
                   error={errors.code?.[0] ? errors.code?.[0] : "　"}
                 ></FormItem>
                 <FormItem style={{ paddingTop: "96px" }}>

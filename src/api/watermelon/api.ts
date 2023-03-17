@@ -3,6 +3,23 @@ import service from "../index";
 // 所有的接口都在这里
 
 /**
+ * 请求发送验证码
+ */
+
+// interface sendVerificationCodeData {
+//   // 邮箱
+//   email: string;
+// }
+
+export const sendVerificationCode = async (email: string) => {
+  return await service({
+    url: "/v1/validation_codes",
+    method: "post",
+    data: { email },
+  });
+};
+
+/**
  *   登录
  */
 interface LoginData {
@@ -106,7 +123,7 @@ interface staticMenuData {
   //时间终点
   happened_before: string;
 }
-export const staticMenu = async (data:staticMenuData) => {
+export const staticMenu = async (data: staticMenuData) => {
   return await service({
     url: "/v1/items",
     method: "get",

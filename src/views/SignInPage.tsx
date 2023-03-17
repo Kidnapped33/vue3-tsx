@@ -58,7 +58,7 @@ export const SignInPage = defineComponent({
 
       if (res.data?.jwt) {
         setToken(res.data.jwt);
-        // router.push({ path: "/welcome" })
+        router.push({ path: "/welcome" })
       } else {
         /**在 index.js catch 了，不走这里 */
         console.log("登录失败，请重试");
@@ -99,7 +99,7 @@ export const SignInPage = defineComponent({
                   error={errors.code?.[0] ? errors.code?.[0] : "　"}
                 ></FormItem>
                 <FormItem style={{ paddingTop: "96px" }}>
-                  <Button>登录</Button>
+                  <Button >登录</Button>
                 </FormItem>
               </Form>
             </div>

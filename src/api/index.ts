@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { Axios, AxiosError } from "axios";
 
 
 /**
@@ -34,7 +34,9 @@ const service = axios.create({
  *  请求拦截器
  */
 service.interceptors.request.use(
+
   function (config) {
+    console.log('aaaa',config)
 
   // 在发送请求之前做些什么
 
@@ -45,9 +47,18 @@ service.interceptors.request.use(
     }
     return config;
   },
+
   function (error) {
-    // 对请求错误做些什么
-    return Promise.reject(error);
+    // 对请求错误做些什么 （ 常用的写这;业务错误写在页面 ）
+    if(error.response){
+      const axiosError = error as AxiosError
+      if(axiosError.response?.status === 429 ){
+        alert("请求过于频繁，请稍后再试")
+      }
+    }
+    
+    throw error // 抛出异常 throw error 和 return Promise.reject(error) 二选一
+    // return Promise.reject(error);
   }
 );
 
@@ -69,8 +80,10 @@ service.interceptors.response.use(
         alert("请输入正确的用户名和密码");
       }else if(error.response?.status === 401){
         alert("需要重新登录");
+      }else if(error.response?.status === 500){
+        alert("服务器错误");
       }else{
-        alert(error);
+        alert('响应拦截器' + error);
       }
     });
   }

@@ -14,7 +14,6 @@ export const SignInPage = defineComponent({
     const router = useRouter();
 
     const refValidationCode =ref<any>()
-
     const formData = reactive({
       email: "1@qq.com",
       code: "123456",
@@ -27,8 +26,6 @@ export const SignInPage = defineComponent({
 
     const onSubmit = async (e: Event) => {
       // e.preventDefault();
-      console.log(123)
-
       const data = {
         email: formData.email,
         code: formData.code,
@@ -58,12 +55,10 @@ export const SignInPage = defineComponent({
       if (!(Object.keys(validateResult).length === 0)) return;
 
       const res = await emailSignIn(data);
-
       if (res.data?.jwt) {
         setToken(res.data.jwt);
         router.push({ path: "/welcome" })
       } else {
-        /**在 index.js catch 了，不走这里 */
         console.log("登录失败，请重试");
       }
     };
@@ -71,9 +66,12 @@ export const SignInPage = defineComponent({
     /**点击发送验证码 */
 
     const sendSixCode = async () => {
-      const res = await sendVerificationCode(formData.email);
-      console.log("res", res);
-      if(res){refValidationCode.value.startCount()}
+
+      const res = await sendVerificationCode(formData.email)
+      // .catch((error) => {
+      //     console.log(error.response.data.message)
+      // });
+      refValidationCode.value.startCount()
       
     };
     return () => (
@@ -87,7 +85,7 @@ export const SignInPage = defineComponent({
                 <Icon class={s.icon} name="watermelon" />
                 <h1 class={s.appName}>西瓜记账</h1>
               </div>
-              <Form onSubmit={onSubmit}>
+              <Form>
                 <FormItem
                   label="邮箱地址"
                   type="text"
@@ -104,7 +102,7 @@ export const SignInPage = defineComponent({
                   error={errors.code?.[0] ? errors.code?.[0] : "　"}
                 ></FormItem>
                 <FormItem style={{ paddingTop: "96px" }}>
-                  <Button>登录</Button>
+                  <Button onclick={onSubmit}>登录</Button>
                 </FormItem>
               </Form>
             </div>

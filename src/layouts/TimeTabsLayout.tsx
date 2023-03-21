@@ -1,37 +1,38 @@
-import { defineComponent, PropType, reactive, ref } from "vue";
+import { defineComponent, onMounted, PropType, reactive, ref } from "vue";
 import { ItemSummary } from "../components/item/ItemSummary";
 import { Form, FormItem } from "../shared/Form";
 import { Overlay } from "vant";
 import { Tab, Tabs } from "../shared/Tabs";
 import { Time } from "../shared/time";
 import s from "./TimeTabsLayout.module.scss";
+import { staticMenu } from "../api/watermelon/api";
 const demo = defineComponent({
   props: {
     startTime: {
       type: String as PropType<string>,
-      required: true
+      required: true,
     },
     endTime: {
       type: String as PropType<string>,
-      required: true
-    }
+      required: true,
+    },
   },
-})
-export const TimeTabsLayout = defineComponent({  
-  props:{
-    component: {  
-      type:  Object as PropType<typeof demo>,
-      required: true
-    }
+});
+export const TimeTabsLayout = defineComponent({
+  props: {
+    component: {
+      type: Object as PropType<typeof demo>,
+      required: true,
+    },
   },
   setup: (props, context) => {
     const refSelected = ref<string>("本月");
     const time = new Time();
-      const customTime = reactive({
+    const customTime = reactive({
       start: new Time().format(),
       end: new Time().format(),
     });
-     const timeList = [
+    const timeList = [
       // '本月'
       {
         start: time.firstDayOfMonth(),
@@ -50,10 +51,21 @@ export const TimeTabsLayout = defineComponent({
     ];
     const refOverlayVisible = ref<boolean>(false);
     const onSubmitCustomTime = (e: Event) => {
-      console.log('eee',e.target)
+      console.log("onSubmit", timeList);
       e.preventDefault();
       refOverlayVisible.value = false;
     };
+
+    onMounted(async () => {
+      const data = {
+        page: 1,
+        happened_after: "",
+        happened_before: "",
+      };
+      const res = await staticMenu(data);
+      /**所有数据 */
+      console.log('所有数据',res.data.resources);
+    });
 
     return () => (
       <>

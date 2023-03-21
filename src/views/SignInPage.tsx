@@ -7,11 +7,13 @@ import { validate } from "../shared/validate";
 import s from "./SignInPage.module.scss";
 import service, { setToken } from "../api";
 import { emailSignIn, sendVerificationCode } from "../api/watermelon/api";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
+import { BackIcon } from "../shared/BackIcon";
 
 export const SignInPage = defineComponent({
   setup: (props, context) => {
     const router = useRouter();
+    const route =useRoute();
 
     const refValidationCode =ref<any>()
     const formData = reactive({
@@ -57,7 +59,14 @@ export const SignInPage = defineComponent({
       const res = await emailSignIn(data);
       if (res.data?.jwt) {
         setToken(res.data.jwt);
-        router.push({ path: "/welcome" })
+        // const returnTo = localStorage.getItem("returnTo")
+        const returnTo = route.query.return_to?.toString()
+        if (returnTo) {
+          router.push({ path: returnTo })
+          localStorage.removeItem("returnTo")
+        } else {
+          router.push({ path: "/welcome" })
+        }
       } else {
         console.log("登录失败，请重试");
       }
@@ -78,7 +87,7 @@ export const SignInPage = defineComponent({
       <MainLayout>
         {{
           title: () => "登录",
-          icon: () => <Icon name="left" />,
+          icon: () => <BackIcon />,
           default: () => (
             <div class={s.wrapper}>
               <div class={s.logo}>

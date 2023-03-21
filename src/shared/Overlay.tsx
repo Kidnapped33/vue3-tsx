@@ -31,7 +31,7 @@ export const Overlay = defineComponent({
               <li>
                 <RouterLink to="/items" class={s.action}>
                   <Icon name="notify" class={s.icon} />
-                  <span>记账页面</span>
+                  <span class="menuSelected">记账页面</span>
                 </RouterLink>
               </li>
               <li>

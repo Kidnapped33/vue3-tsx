@@ -1,6 +1,7 @@
 import { defineComponent, onMounted, PropType, ref } from "vue";
 import { staticMenu } from "../../api/watermelon/api";
 import { FloatButton } from "../../shared/FloatButton";
+import { Time } from "../../shared/time";
 import s from './ItemSummary.module.scss';
 
 export const ItemSummary = defineComponent({
@@ -18,19 +19,37 @@ export const ItemSummary = defineComponent({
     const itemList = ref<any[]>([])
     const incomeTotal = ref<number>(0)
     const expensesTotal = ref<number>(0)
+   
+
     onMounted(async() => {
+
+      // const staticDate = new Time()
+      // /**本月 */
+      // console.log('本月第一天',staticDate.firstDayOfMonth().format())
+      // console.log('本月最后一天',staticDate.lastDayOfMonth().format())
+      // /**上月 */
+      // console.log('上月第一天',staticDate.add(-1, "month").firstDayOfMonth().format())
+      // console.log('上月最后一天',staticDate.add(-1, "month").lastDayOfMonth().format())
+      // /**今年 */
+      // console.log('本年第一天',staticDate.firstDayOfYear().format())
+      // console.log('本年最后一天',staticDate.lastDayOfYear().format())
+      // /**自定义起始时间 */
+
       const data = {
           page:1,
-          happened_after: "2023-03-17 17:49:18 +0800",
-          happened_before: "2023-03-05 17:49:18 +0800"
+          happened_after: '',
+          happened_before:''
       }
       const res =  await staticMenu(data)
       itemList.value = res.data.resources
+      /**所有数据 */
       console.log(res.data.resources)
     
+      /**收入统计总额度 */
       incomeTotal.value = res.data.resources.filter((item:any) => item.kind === 'income')
       .reduce((total:any, current:any) => total + current.amount, 0) /100
 
+      /**支出统计总额度 */
       expensesTotal.value = res.data.resources.filter((item:any) => item.kind === 'expenses')
       .reduce((total:any, current:any) => total + current.amount, 0) /100
 

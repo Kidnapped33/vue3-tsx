@@ -19,7 +19,7 @@ import { SignInPage } from "../views/SignInPage";
 import { StatisticsPage } from "../views/StatisticsPage";
 
 export const routes: RouteRecordRaw[] = [
-  { path: "/", redirect: "/sign_in" },
+  { path: "/", redirect: "/start" },
   {
     path: "/welcome",
     component: Welcome,
@@ -34,6 +34,11 @@ export const routes: RouteRecordRaw[] = [
   { path: "/start", component: StartPage },
   {
     path: "/items", component: ItemPage,
+    beforeEnter: (to, from, next) => {
+      const token = localStorage.getItem("token");
+      if (!token) {next('/sign_in');}
+      next();
+    },
     children: [
       { path: "", component: ItemList },
       { path: "create", component: ItemCreate },

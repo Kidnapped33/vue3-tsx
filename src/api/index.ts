@@ -34,7 +34,6 @@ const service = axios.create({
  */
 service.interceptors.request.use(
   function (config) {
-    console.log("aaaa", config);
 
     // 在发送请求之前做些什么
     // 1. 从 localStorage 中获取 token

@@ -1,5 +1,5 @@
 import { computed, defineComponent, PropType, ref } from "vue";
-import { RouterLink } from "vue-router";
+import { RouterLink, useRouter } from "vue-router";
 import { Icon } from "../../src/shared/Icon";
 import s from "./Tags.module.scss";
 import { Time } from "./Time";
@@ -33,13 +33,17 @@ export const Tags = defineComponent({
     let timer = ref<number|undefined>(undefined);
     let currentTag = ref<HTMLDivElement|undefined>(undefined);
 
-    const onLongPress = () => {
+    const router = useRouter()
+    const onLongPress = (tagId: number) => {
       console.log('long press')
+      router.push({path:'/tags/create', query:{ kind:props.kind, id:tagId }})
+      // router.push(`/tags/${tagId}`)
+      
     }
-    const onTouchStart = (e: TouchEvent) => {
+    const onTouchStart = (e: TouchEvent,tag:any) => {
       currentTag.value = e.target as HTMLDivElement;
       timer.value = setTimeout(() => {
-        onLongPress()
+        onLongPress(tag.id)
       }, 500);
     };
     const onTouchEnd = (e: TouchEvent) => {
@@ -69,7 +73,7 @@ export const Tags = defineComponent({
           <div
             class={[s.tag, props.selected === tag.id && s.selected]}
             onClick={() => selectChange(tag)}
-            onTouchstart={onTouchStart}
+            onTouchstart={(e)=>onTouchStart(e,tag)}
             onTouchend={onTouchEnd}
           >
             <div class={s.sign}>{tag.sign}</div>

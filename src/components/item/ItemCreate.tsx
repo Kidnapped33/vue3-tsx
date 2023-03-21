@@ -7,6 +7,7 @@ import { Tags } from "../../shared/Tags";
 import { InputPad } from "./InputPad";
 import s from "./ItemCreate.module.scss";
 import { addRecordItem, getTags } from "../../api/watermelon/api";
+import { BackIcon } from "../../shared/BackIcon";
 
 export const ItemCreate = defineComponent({
   props: {
@@ -74,7 +75,7 @@ export const ItemCreate = defineComponent({
           {{
             icon: () => (
               <RouterLink to="/start">
-                <Icon name="left" class={s.navIcon}></Icon>
+                <BackIcon class={s.navIcon}/>
               </RouterLink>
             ),
             title: () => "记一笔",

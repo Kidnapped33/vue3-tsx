@@ -4,6 +4,7 @@ import { MainLayout } from "../../layouts/MainLayout";
 import s from './Tag.module.scss';
 import { Button } from "../../shared/Button";
 import { TagForm } from "./TagForm";
+import { BackIcon } from "../../shared/BackIcon";
 
 export const TagEdit = defineComponent({
   props: { name: { type: String as PropType<string> } },
@@ -11,7 +12,7 @@ export const TagEdit = defineComponent({
     return () => (
         <MainLayout>{{
           title: () => '编辑标签',
-          icon: () => <Icon name="left" onClick={() => { }} />,
+          icon: () => <BackIcon />,
           default: () => (
               <div>
                 <TagForm/>

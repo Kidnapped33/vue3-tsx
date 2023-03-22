@@ -21,4 +21,15 @@ export default defineConfig({
       resolvers: [VantResolver()],
     }),
   ],
+  server: {
+    // port: 3000,
+    https: true,
+    proxy: {
+      "/": {
+        target: "https://121.196.236.94:8080/api",
+        changeOrigin: true,
+        // rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
+  },
 });

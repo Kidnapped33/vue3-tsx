@@ -75,7 +75,7 @@ export const ItemCreate = defineComponent({
           {{
             icon: () => (
               <RouterLink to="/start">
-                <BackIcon class={s.navIcon}/>
+                <BackIcon class={s.navIcon} />
               </RouterLink>
             ),
             title: () => "记一笔",

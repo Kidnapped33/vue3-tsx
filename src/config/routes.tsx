@@ -19,7 +19,7 @@ import { SignInPage } from "../views/SignInPage";
 import { StatisticsPage } from "../views/StatisticsPage";
 
 export const routes: RouteRecordRaw[] = [
-  { path: "/", redirect: "/start" },
+  { path: "/", redirect: "/welcome" },
   {
     path: "/welcome",
     component: Welcome,

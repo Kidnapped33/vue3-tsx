@@ -1,17 +1,28 @@
-import { defineComponent, onMounted, reactive, ref } from "vue";
+import { defineComponent, onMounted, PropType, reactive, ref } from "vue";
 import { Button } from "../../shared/Button";
 import { Form, FormItem } from "../../shared/Form";
 import { Rules, validate } from "../../shared/validate";
 import s from "./Tag.module.scss";
-import { createTag } from "../../api/watermelon/api";
+import { createTag, editTag, getTag } from "../../api/watermelon/api";
 import { useRoute, useRouter } from "vue-router";
 
 export const TagForm = defineComponent({
-  setup: () => {
+  props:{
+    id: Number
+  },
+  setup: (props) => {
+
+    onMounted(async () => {
+      if(!props.id) {return}
+      const response = await getTag(props.id)
+      Object.assign(formData, response.data.resource)
+    });
+
     const router = useRouter();
     const route = useRoute();
 
     const formData = reactive({
+      id: undefined,
       name: "",
       sign: "",
       kind: route.query.kind!.toString(),
@@ -40,16 +51,22 @@ export const TagForm = defineComponent({
 
       Object.assign(errors, result);
 
-      if (!(Object.keys(result).length === 0)) return;
-      const res = await createTag(formData)
-      if (res){
-        // router.go(-1)
-        router.back()
-      }
-
+      /** 修改 */
+      if(formData.id){
+        const res = await editTag(formData.id, {name: formData.name, sign: formData.sign})
+        if (res){router.back()}
+      }else{
+        /** 新增 */
+        if (!(Object.keys(result).length === 0)) return;
+        const res = await createTag(formData)
+        if (res){ router.back()}
+      };
     };
+
+
+
     return () => (
-      <Form onSubmit={onSubmit}>
+      <Form onSubmit={onSubmit} >
         <FormItem label='标签名'
           type="text"
           v-model={formData.name}
@@ -61,7 +78,7 @@ export const TagForm = defineComponent({
           <p class={s.tips}>记账时长按标签即可进行编辑</p>
         </FormItem>
         <FormItem>
-          <Button class={[s.button]}>确定</Button>
+          <Button type='submit' class={[s.button]}>确定</Button>
         </FormItem>
       </Form>
     );

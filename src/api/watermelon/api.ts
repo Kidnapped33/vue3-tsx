@@ -51,6 +51,17 @@ export const emailSignIn = async (data: LoginData) => {
  */
 
 /**
+ * 获取标签
+ */
+
+export const getTag = async (id: number) => {
+  return await service({
+    url: `/v1/tags/${id}`,
+    method: "get",
+  });
+};
+
+/**
  * 获取标签列表
  */
 
@@ -73,6 +84,7 @@ export const getTags = async (data: TagList) => {
  *  创建标签
  */
 interface Tag {
+  id?: number;
   // 名称
   name: string;
   // 符号
@@ -84,6 +96,18 @@ export const createTag = async (data: Tag) => {
   return await service({
     url: "/v1/tags",
     method: "post",
+    data,
+  });
+};
+
+/**
+ * 修改标签
+ */
+
+export const editTag = async (id: number, data: Pick<Tag, 'name' | 'sign'>) => {
+  return await service({
+    url: `/v1/tags/${id}`,
+    method: "patch",
     data,
   });
 };

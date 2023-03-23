@@ -1,4 +1,5 @@
 import { defineComponent, onMounted, PropType, ref } from "vue";
+import { RouterLink } from "vue-router";
 import { staticMenu } from "../../api/watermelon/api";
 import { FloatButton } from "../../shared/FloatButton";
 import { Time } from "../../shared/time";
@@ -82,7 +83,9 @@ export const ItemSummary = defineComponent({
         },)}
       </ol>
       <div class={s.more}>向下滑动加载更多</div>
-      <FloatButton iconName='add' />
+      <RouterLink to="/items/create">
+        <FloatButton iconName='add' />
+      </RouterLink>
     </div>
     )
   },

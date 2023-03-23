@@ -4,9 +4,9 @@ import { FunctionalComponent } from "vue";
 export const Second:FunctionalComponent = () => {
   return <div class={s.card}>
      <svg>
-      <use xlinkHref='#watermelon'></use>
+      <use xlinkHref='#cat5'></use>
     </svg>  
-     <h2>第二只🐷<br />还会省钱</h2>
+     <h2>管理财务</h2>
   </div>;
 };
 

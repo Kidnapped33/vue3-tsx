@@ -15,7 +15,7 @@ export const StartPage = defineComponent({
     return () => (
       <MainLayout>
         {{
-          title: () => "西瓜记账",
+          title: () => "财迷猫",
           icon: () => <OverlayIcon />,
           default: () => (
             <>
@@ -24,7 +24,7 @@ export const StartPage = defineComponent({
                 <Tab name="上月"></Tab>
               </Tabs> */}
               <Center class={s.img_wrapper}>
-                <Icon name="watermelon" class={s.img} />
+                <Icon name="cat1" class={s.img} />
               </Center>
               <div class={s.button_wrapper}>
                 <RouterLink to="/items/create">

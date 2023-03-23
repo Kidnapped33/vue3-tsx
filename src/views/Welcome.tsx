@@ -27,10 +27,10 @@ export const Welcome = defineComponent({
     return () => (
       <div class={s.wapper}>
         <header>
-          <svg>
-            <use xlinkHref='#watermelon'></use>
+          <svg style={{width: '100px'}}>
+            <use xlinkHref='#cat1'></use>
           </svg>
-          <h3>测试用例</h3>
+          <h3>财迷猫</h3>
         </header>
         <main class={s.main} ref={main}>
           <RouterView name="main">

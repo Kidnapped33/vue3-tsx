@@ -23,7 +23,8 @@ export const getToken = () => {
 const service = axios.create({
   // baseURL: "https://some-domain.com/api/",
   // baseURL: "http://192.168.1.2:3000/api",
-  baseURL: "http://121.196.236.94:8080/api",
+  // baseURL: "http://121.196.236.94:8080/api",
+  baseURL: " https://mangosteen2.hunger-valley.com/api",
   // baseURL: "",
   timeout: 10000,
   //headers: {'X-Custom-Header': 'foobar'}

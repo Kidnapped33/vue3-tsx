@@ -113,6 +113,17 @@ export const editTag = async (id: number, data: Pick<Tag, 'name' | 'sign'>) => {
 };
 
 /**
+ * 删除标签
+ */
+
+export const deleteTag = async (id:number) => {
+  return await service({
+    url: `/v1/tags/${id}`,
+    method: "delete",
+  })
+}
+
+/**
  * 创建账目
  */
 

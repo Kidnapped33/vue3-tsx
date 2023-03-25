@@ -2,7 +2,7 @@ import { defineComponent, PropType, ref } from "vue";
 import { Icon } from "../../shared/Icon";
 import s from "./InputPad.module.scss";
 import { Time } from "../../shared/time";
-import { DatetimePicker, NumberKeyboard, Popup } from "vant";
+import { DatetimePicker, Dialog, NumberKeyboard, Popup } from "vant";
 import "vant/es/datetime-picker/style";
 
 export const InputPad = defineComponent({
@@ -131,7 +131,12 @@ export const InputPad = defineComponent({
       {
         text: "提交",
         onClick: () => {
-          if(refAmount.value === '0') alert('请输入金额')
+          if(refAmount.value === '0'){
+            Dialog({
+              title: '温馨提示',
+              message: '请输入金额',
+            })
+          }
           context.emit("update:amount", parseFloat(refAmount.value) * 100);
           props.onSubmit?.();
         },
@@ -185,3 +190,5 @@ export const InputPad = defineComponent({
     );
   },
 });
+
+

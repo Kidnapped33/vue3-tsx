@@ -8,6 +8,7 @@ import { InputPad } from "./InputPad";
 import s from "./ItemCreate.module.scss";
 import { addRecordItem, getTags } from "../../api/watermelon/api";
 import { BackIcon } from "../../shared/BackIcon";
+import { Dialog } from "vant";
 
 export const ItemCreate = defineComponent({
   props: {
@@ -58,7 +59,12 @@ export const ItemCreate = defineComponent({
 
     const onSubmit = async () => {
       // e.preventDefault();
-      if (!formData.refTagId) return alert("please chose tag");
+      if (!formData.refTagId){
+        return Dialog({
+          title: "提示",
+          message: "请选择标签",
+        })
+      }
       const data = {
         amount: formData.refAmount,
         kind: formData.refKind === "支出" ? "expenses" : "income",
@@ -66,7 +72,12 @@ export const ItemCreate = defineComponent({
         tag_ids: [formData.refTagId],
       };
       const res = await addRecordItem(data);
-      if (res) alert("添加成功");
+      if (res) {
+        Dialog({
+          title: "提示",
+          message: "添加成功",
+        })
+      };
     };
 
     return () => (

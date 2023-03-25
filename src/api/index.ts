@@ -50,7 +50,7 @@ service.interceptors.request.use(
     if (error.response) {
       const axiosError = error as AxiosError;
       if (axiosError.response?.status === 429) {
-        alert("请求过于频繁，请稍后再试");
+        console.log("请求过于频繁，请稍后再试");
       }
     }
 
@@ -75,7 +75,6 @@ service.interceptors.response.use(
     // 对响应错误做点什么
     if (error.response?.status === 422) {
       // setToken("");
-      // alert("请输入正确的用户名和密码");
       console.log("请输入正确的用户名和密码");
     } else if (error.response?.status === 401) {
       console.log("需要重新登录");

@@ -1,4 +1,6 @@
 import axios, { Axios, AxiosError } from "axios";
+import { useRouter } from "vue-router";
+const router = useRouter();
 
 /**
  *  设置 Token
@@ -78,6 +80,8 @@ service.interceptors.response.use(
       console.log("请输入正确的用户名和密码");
     } else if (error.response?.status === 401) {
       console.log("需要重新登录");
+      localStorage.removeItem('token')
+      router.push({ path: "/sign-in" })
     } else if (error.response?.status === 500) {
       console.log("服务器错误");
     } else {

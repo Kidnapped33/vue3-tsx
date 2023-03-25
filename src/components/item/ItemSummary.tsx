@@ -3,7 +3,6 @@ import { RouterLink } from "vue-router";
 import { staticMenu } from "../../api/watermelon/api";
 import { Button } from "../../shared/Button";
 import { FloatButton } from "../../shared/FloatButton";
-import { Time } from "../../shared/time";
 import s from "./ItemSummary.module.scss";
 
 export const ItemSummary = defineComponent({
@@ -23,12 +22,6 @@ export const ItemSummary = defineComponent({
     const page = ref(0);
 
     const fetchItems = async () => {
-      // const response = await staticMenu('/items', {
-      //   happen_after: props.startDate,
-      //   happen_before: props.endDate,
-      //   page: page.value + 1,
-      //   _mock: 'itemIndex',
-      // })
 
       const data = {
         happened_after: props.startTime,
@@ -39,7 +32,7 @@ export const ItemSummary = defineComponent({
       const response = await staticMenu(data);
 
       const { resources, pager } = response.data;
-      itemList.value.length=0
+      itemList.value.length = 0
       itemList.value?.push(...resources);
       hasMore.value =
         (pager.page - 1) * pager.per_page + resources.length < pager.count;
@@ -63,45 +56,8 @@ export const ItemSummary = defineComponent({
     const incomeTotal = ref<number>(0);
     const expensesTotal = ref<number>(0);
 
-    onMounted(async () => {
+    onMounted(fetchItems);
 
-      fetchItems();
-      // const staticDate = new Time()
-      // /**本月 */
-      // console.log('本月第一天',staticDate.firstDayOfMonth().format())
-      // console.log('本月最后一天',staticDate.lastDayOfMonth().format())
-      // /**上月 */
-      // console.log('上月第一天',staticDate.add(-1, "month").firstDayOfMonth().format())
-      // console.log('上月最后一天',staticDate.add(-1, "month").lastDayOfMonth().format())
-      // /**今年 */
-      // console.log('本年第一天',staticDate.firstDayOfYear().format())
-      // console.log('本年最后一天',staticDate.lastDayOfYear().format())
-      // /**自定义起始时间 */
-
-      // const data = {
-      //   page: 1,
-      //   happened_after: "",
-      //   happened_before: "",
-      // };
-      // const res = await staticMenu(data);
-      // itemList.value = res.data.resources;
-      // /**所有数据 */
-      // console.log(res.data.resources);
-
-      /**收入统计总额度 */
-      // incomeTotal.value =
-      //   res.data.resources
-      //     .filter((item: any) => item.kind === "income")
-      //     .reduce((total: any, current: any) => total + current.amount, 0) /
-      //   100;
-
-      // /**支出统计总额度 */
-      // expensesTotal.value =
-      //   res.data.resources
-      //     .filter((item: any) => item.kind === "expenses")
-      //     .reduce((total: any, current: any) => total + current.amount, 0) /
-      //   100;
-    });
     return () => (
       <div class={s.wrapper}>
         <ul class={s.total}>

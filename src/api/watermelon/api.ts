@@ -158,10 +158,10 @@ interface staticMenuData {
   //时间终点
   happened_before: string;
 }
-export const staticMenu = async (data: staticMenuData) => {
+export const staticMenu = async (params: staticMenuData) => {
   return await service({
-    url: "/v1/items",
+    url: "/v1/items/",
     method: "get",
-    data,
+    params,
   });
 };

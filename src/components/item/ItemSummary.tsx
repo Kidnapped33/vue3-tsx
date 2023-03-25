@@ -1,4 +1,4 @@
-import { defineComponent, onMounted, PropType, ref } from "vue";
+import { defineComponent, onMounted, PropType, ref, watch } from "vue";
 import { RouterLink } from "vue-router";
 import { staticMenu } from "../../api/watermelon/api";
 import { Button } from "../../shared/Button";
@@ -28,12 +28,21 @@ export const ItemSummary = defineComponent({
         happened_before: props.endTime,
         page: page.value + 1,
       };
+      // const data = {
+      //   happened_after:'',
+      //   happened_before: '',
+      //   page: 0,
+      // }
 
+      console.log('data--------',data)
+      
       const response = await staticMenu(data);
+      console.log('response--------',response.data.resources)
 
       const { resources, pager } = response.data;
       itemList.value.length = 0
       itemList.value?.push(...resources);
+      console.log('itemList.value',itemList.value.length)
       hasMore.value =
         (pager.page - 1) * pager.per_page + resources.length < pager.count;
       page.value += 1;
@@ -57,6 +66,14 @@ export const ItemSummary = defineComponent({
     const expensesTotal = ref<number>(0);
 
     onMounted(fetchItems);
+
+    
+    // watch(()=>[props.startTime,props.endTime], ()=>{
+    //   itemList.value = []
+    //   hasMore.value = false
+    //   page.value = 0
+    //   fetchItems()
+    // })
 
     return () => (
       <div class={s.wrapper}>

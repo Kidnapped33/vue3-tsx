@@ -24,7 +24,8 @@ export const StartPage = defineComponent({
                 <Tab name="上月"></Tab>
               </Tabs> */}
               <Center class={s.img_wrapper}>
-                <Icon name="cat1" class={s.img} />
+                <Icon name="cat5" class={s.img} />
+                   还没有记账哦~ 快去记账吧~
               </Center>
               <div class={s.button_wrapper}>
                 <RouterLink to="/items/create">

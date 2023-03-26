@@ -154,9 +154,9 @@ interface staticMenuData {
   //页码
   page: number;
   //时间起点
-  happened_after: string;
+  happened_after?: string;
   //时间终点
-  happened_before: string;
+  happened_before?: string;
 }
 export const staticMenu = async (params: staticMenuData) => {
   return await service({

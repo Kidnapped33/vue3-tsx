@@ -3,6 +3,7 @@ import { RouterLink } from "vue-router";
 import { staticMenu } from "../../api/watermelon/api";
 import { Button } from "../../shared/Button";
 import { FloatButton } from "../../shared/FloatButton";
+import { Money } from "../../shared/Money";
 import s from "./ItemSummary.module.scss";
 
 export const ItemSummary = defineComponent({
@@ -43,15 +44,13 @@ export const ItemSummary = defineComponent({
         incomeTotal.value =
         response.data.resources
           .filter((item: any) => item.kind === "income")
-          .reduce((total: any, current: any) => total + current.amount, 0) /
-        100;
+          .reduce((total: any, current: any) => total + current.amount, 0);
 
       /**支出统计总额度 */
       expensesTotal.value =
       response.data.resources
           .filter((item: any) => item.kind === "expenses")
-          .reduce((total: any, current: any) => total + current.amount, 0) /
-        100;
+          .reduce((total: any, current: any) => total + current.amount, 0);
     };
 
     const incomeTotal = ref<number>(0);
@@ -72,15 +71,15 @@ export const ItemSummary = defineComponent({
         <ul class={s.total}>
           <li>
             <span>收入</span>
-            <span>{incomeTotal.value}</span>
+            <span>{<Money value={incomeTotal.value}/>}</span>
           </li>
           <li>
             <span>支出</span>
-            <span>{expensesTotal.value}</span>
+            <span>{<Money value={expensesTotal.value}/>}</span>
           </li>
           <li>
             <span>净收入</span>
-            <span>{incomeTotal.value - expensesTotal.value}</span>
+            <span>{<Money value={incomeTotal.value - expensesTotal.value}/>}</span>
           </li>
         </ul>
         <ol class={s.list}>
@@ -94,7 +93,7 @@ export const ItemSummary = defineComponent({
                   <div class={s.tagAndAmount}>
                     <span class={s.tag}>{item?.tags[0]?.name}</span>
                     <span class={s.amount}>
-                      ￥{(item?.amount / 100).toFixed(2)}
+                      ￥{(<Money value={item?.amount}/>)}
                     </span>
                   </div>
                   <div class={s.time}>{item?.tags[0]?.created_at}</div>

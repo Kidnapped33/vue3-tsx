@@ -37,8 +37,10 @@ export const ItemSummary = defineComponent({
       const { resources, pager } = response.data;
       itemList.value.length = 0
       itemList.value?.push(...resources);
-      hasMore.value =
-        (pager.page - 1) * pager.per_page + resources.length < pager.count;
+      
+
+      hasMore.value = (pager.page - 1) * pager.per_page + resources.length < pager.count;
+
       page.value += 1;
 
         /**收入统计总额度 */
@@ -59,13 +61,12 @@ export const ItemSummary = defineComponent({
 
     onMounted(fetchItems);
 
-    
-    // watch(()=>[props.startTime,props.endTime], ()=>{
-    //   itemList.value = []
-    //   hasMore.value = false
-    //   page.value = 0
-    //   fetchItems()
-    // })
+    watch(()=>[props.startTime,props.endTime], ()=>{
+      itemList.value = []
+      hasMore.value = false
+      page.value = 0
+      fetchItems()
+    })
 
     return () => (
       <div class={s.wrapper}>

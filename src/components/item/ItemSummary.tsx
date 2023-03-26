@@ -2,6 +2,7 @@ import { defineComponent, onMounted, PropType, ref, watch } from "vue";
 import { RouterLink } from "vue-router";
 import { staticMenu } from "../../api/watermelon/api";
 import { Button } from "../../shared/Button";
+import { DateTime } from "../../shared/DateTime";
 import { FloatButton } from "../../shared/FloatButton";
 import { Money } from "../../shared/Money";
 import s from "./ItemSummary.module.scss";
@@ -96,7 +97,7 @@ export const ItemSummary = defineComponent({
                       ￥{(<Money value={item?.amount}/>)}
                     </span>
                   </div>
-                  <div class={s.time}>{item?.tags[0]?.created_at}</div>
+                  <div class={s.time}>{ <DateTime value={item?.tags[0]?.created_at} />}</div>
                 </div>
               </li>
             );

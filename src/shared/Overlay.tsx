@@ -1,7 +1,7 @@
-import { defineComponent, PropType, ref } from "vue";
+import { defineComponent, onMounted, PropType, ref } from "vue";
 import s from "./Overlay.module.scss";
 import { Icon } from "../shared/Icon";
-import { RouterLink } from "vue-router";
+import { RouterLink, useRoute } from "vue-router";
 
 export const Overlay = defineComponent({
   name: "Overlay",
@@ -13,18 +13,29 @@ export const Overlay = defineComponent({
       props.onClose?.();
     };
 
-    const token = ref<string>('123321')
-    token.value = JSON.stringify(localStorage.getItem('token'))
-    console.log('token', token.value)
+    const currentToken = ref<string>('')
+    currentToken.value = JSON.stringify(localStorage.getItem('token'))
+    // console.log('token', token.value)
 
-    const onClickSignIn = () => {};
+    // const onClickSignIn = () => {
+    //   // if(token.value) {
+    //   //   localStorage.removeItem('token')
+    //   //   token.value = ''
+    //   // }
+    //   // console.log('token.value',token.value?.length)
+     
+    // };
+    const route = useRoute()
+    onMounted(() => { console.log('用户信息',{'token---':currentToken.value})});
     return () => (
       <>
         <div class={s.mask} onClick={close}></div>
         <div class={s.overlay}>
-          <section class={s.currentUser} onClick={onClickSignIn}>
-            <h2>{token ? 'admin' : '未登录用户'}</h2>
-            <p><RouterLink to="/sign_in">{ token ? '退出登录' : '点击登录'}</RouterLink></p>
+          <section class={s.currentUser}>
+          <RouterLink to={`/sign_in?return_to=${route.fullPath}`}>
+            <h2>{currentToken.value !== "null" ? 'admin' : '未登录用户'}</h2>
+            <p>{ currentToken.value !== "null" ? <span onClick={()=> localStorage.removeItem('token')}>退出登录</span>  : <span>点击登录</span>} </p>
+          </RouterLink>
           </section>
           <nav>
             <ul class={s.action_list}>

@@ -11,12 +11,16 @@ export const Tabs = defineComponent({
       type: String as PropType<string>,
       required: false,
     },
+    clearSelectedTag: {
+      type: String as PropType<string>,
+      required: false,
+    }
     // onUpdateSeletcted: {
     //   type: Function as PropType<(name: string) => void>,
     //   require: false,
     // },
   },
-  emits: ["update:selected"],
+  emits: ["update:selected","update:clearSelectedTag"],
   setup: (props, context) => {
     // type Kind = keyof typeof kind;
     // const kind =  {
@@ -38,7 +42,10 @@ export const Tabs = defineComponent({
             {tabs.map((tab) => (
               <li
                 class={[tab.props?.name === props?.selected ? [s.selected, cp + '_selected'] : "",  cp + '_tabs_nav_item']}
-                onClick={() => context.emit("update:selected", tab.props?.name)}
+                onClick={() => {
+                  context.emit("update:selected", tab.props?.name),
+                  context.emit("update:clearSelectedTag", undefined)
+                }}
               >
                 {/* {kind[(tab.props!.name as Kind)]} */}
                 { tab.props!.name }

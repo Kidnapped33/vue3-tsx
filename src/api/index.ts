@@ -1,6 +1,5 @@
 import axios, { Axios, AxiosError } from "axios";
-import { useRouter } from "vue-router";
-const router = useRouter();
+import { router } from "../main";
 
 /**
  *  设置 Token
@@ -37,7 +36,6 @@ const service = axios.create({
  */
 service.interceptors.request.use(
   function (config) {
-
     // 在发送请求之前做些什么
     // 1. 从 localStorage 中获取 token
     const token = localStorage.getItem("token");
@@ -65,13 +63,12 @@ service.interceptors.request.use(
  *  响应拦截器
  */
 service.interceptors.response.use(
-
   function (response) {
     // 2xx 范围内的状态码都会触发该函数。
     // 对响应数据做点什么
     return response;
   },
-  
+
   function (error) {
     // 超出 2xx 范围的状态码都会触发该函数。
     // 对响应错误做点什么
@@ -80,8 +77,8 @@ service.interceptors.response.use(
       console.log("请输入正确的用户名和密码");
     } else if (error.response?.status === 401) {
       console.log("需要重新登录");
-      localStorage.removeItem('token')
-      router.push({ path: "/sign-in" })
+      localStorage.removeItem("token");
+      router.push({ path: "/sign_in" });
     } else if (error.response?.status === 500) {
       console.log("服务器错误");
     } else {

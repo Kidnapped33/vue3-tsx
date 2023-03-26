@@ -8,7 +8,8 @@ import { InputPad } from "./InputPad";
 import s from "./ItemCreate.module.scss";
 import { addRecordItem, getTags } from "../../api/watermelon/api";
 import { BackIcon } from "../../shared/BackIcon";
-import { Dialog } from "vant";
+import  { Dialog, Notify }  from "vant";
+import { useRouter } from "vue-router";
 
 export const ItemCreate = defineComponent({
   props: {
@@ -23,6 +24,8 @@ export const ItemCreate = defineComponent({
       sign: string;
       kind: string;
     }
+
+    const router = useRouter()
 
     const expensesList = ref<Tag[]>([
       // { name: "餐饮", sign: "🍔", kind: "expenses" }
@@ -73,10 +76,8 @@ export const ItemCreate = defineComponent({
       };
       const res = await addRecordItem(data);
       if (res) {
-        Dialog({
-          title: "提示",
-          message: "添加成功",
-        })
+        Notify({ type: 'success', message: '添加成功' });
+        router.push('/items');
       };
     };
 
@@ -93,7 +94,9 @@ export const ItemCreate = defineComponent({
             default: () => (
               <>
                 <div class={s.wrapper}>
-                  <Tabs v-model:selected={formData.refKind} class={s.tabs}>
+                  <Tabs v-model:selected={formData.refKind} class={s.tabs}
+                        v-model:clearSelectedTag={formData.refTagId}
+                  >
                     <Tab name={RefKind.expenses}>
                       <Tags
                         kind={formData.refKind}

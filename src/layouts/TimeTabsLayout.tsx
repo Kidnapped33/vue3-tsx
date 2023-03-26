@@ -1,5 +1,4 @@
 import { defineComponent, onMounted, PropType, reactive, ref } from "vue";
-import { ItemSummary } from "../components/item/ItemSummary";
 import { Form, FormItem } from "../shared/Form";
 import { Overlay } from "vant";
 import { Tab, Tabs } from "../shared/Tabs";
@@ -10,11 +9,11 @@ const demo = defineComponent({
   props: {
     startTime: {
       type: String as PropType<string>,
-      required: true,
+      required: false,
     },
     endTime: {
       type: String as PropType<string>,
-      required: true,
+      required: false,
     },
   },
 });
@@ -28,11 +27,11 @@ export const TimeTabsLayout = defineComponent({
   setup: (props, context) => {
     const refSelected = ref<string>("本月");
     const time = new Time();
-    const customTime = reactive({
-      start: new Time().format(),
-      end: new Time().format(),
-    });
-    const timeList = [
+    const customTime = reactive<{
+      start?: string;
+      end?: string;
+    }>({ });
+    const timeList = reactive( [
       // '本月'
       {
         start: time.firstDayOfMonth(),
@@ -48,24 +47,13 @@ export const TimeTabsLayout = defineComponent({
         start: time.firstDayOfYear(),
         end: time.lastDayOfYear(),
       },
-    ];
+    ]);
     const refOverlayVisible = ref<boolean>(false);
     const onSubmitCustomTime = (e: Event) => {
       console.log("onSubmit", timeList);
       e.preventDefault();
       refOverlayVisible.value = false;
     };
-
-    onMounted(async () => {
-      const data = {
-        page: 1,
-        happened_after: "",
-        happened_before: "",
-      };
-      const res = await staticMenu(data);
-      /**所有数据 */
-      console.log('所有数据',res.data.resources);
-    });
 
     return () => (
       <>

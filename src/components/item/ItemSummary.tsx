@@ -9,11 +9,11 @@ export const ItemSummary = defineComponent({
   props: {
     startTime: {
       type: String as PropType<string>,
-      required: true,
+      required: false,
     },
     endTime: {
       type: String as PropType<string>,
-      required: true,
+      required: false,
     },
   },
   setup: (props, context) => {
@@ -28,21 +28,13 @@ export const ItemSummary = defineComponent({
         happened_before: props.endTime,
         page: page.value + 1,
       };
-      // const data = {
-      //   happened_after:'',
-      //   happened_before: '',
-      //   page: 0,
-      // }
-
-      console.log('data--------',data)
       
+      if(!data.happened_after) return 
       const response = await staticMenu(data);
-      console.log('response--------',response.data.resources)
 
       const { resources, pager } = response.data;
       itemList.value.length = 0
       itemList.value?.push(...resources);
-      console.log('itemList.value',itemList.value.length)
       hasMore.value =
         (pager.page - 1) * pager.per_page + resources.length < pager.count;
       page.value += 1;

@@ -70,11 +70,11 @@ export const ItemSummary = defineComponent({
     return () => (
       <div class={s.wrapper}>
         <ul class={s.total}>
-          <li>
+          <li class={s.red}>
             <span>收入</span>
             <span>{<Money value={incomeTotal.value}/>}</span>
           </li>
-          <li>
+          <li class={s.green}>
             <span>支出</span>
             <span>{<Money value={expensesTotal.value}/>}</span>
           </li>

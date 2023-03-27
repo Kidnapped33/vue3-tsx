@@ -58,6 +58,11 @@ export const TagForm = defineComponent({
       }else{
         /** 新增 */
         if (!(Object.keys(result).length === 0)) return;
+        if(formData.kind === "支出"){
+          formData.kind = "expenses"
+        }else if(formData.kind === "收入"){
+          formData.kind = "income"
+        }
         const res = await createTag(formData)
         if (res){ router.back()}
       };

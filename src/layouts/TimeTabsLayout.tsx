@@ -23,6 +23,11 @@ export const TimeTabsLayout = defineComponent({
       type: Object as PropType<typeof demo>,
       required: true,
     },
+    reFresh: {
+      type: Boolean as PropType<boolean>,
+      default: false,
+      required: true,
+    },
   },
   setup: (props, context) => {
     const refSelected = ref<string>("本月");
@@ -70,6 +75,7 @@ export const TimeTabsLayout = defineComponent({
           onUpdate:selected={() =>
             (refOverlayVisible.value = refSelected.value === "自定义起始时间")
           }
+          reFresh={props.reFresh}
         >
           <Tab name="本月">
             <props.component

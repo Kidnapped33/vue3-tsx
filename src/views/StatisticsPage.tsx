@@ -11,7 +11,7 @@ export const StatisticsPage = defineComponent({
           title: () => "统计",
           icon: () => <OverlayIcon />,
           default: () => <>
-          <TimeTabsLayout component={Charts}/>
+          <TimeTabsLayout reFresh={true} component={Charts}/>
           </>,
         }}
       </MainLayout>

@@ -18,7 +18,7 @@ export const ItemList = defineComponent({
           icon: () => <OverlayIcon />,
           default: () => (
             <>
-              <TimeTabsLayout component={ ItemSummary } />
+              <TimeTabsLayout  reFresh={false} component={ ItemSummary } />
             </>
           ),
         }}

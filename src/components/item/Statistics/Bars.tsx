@@ -1,4 +1,5 @@
 import { computed, defineComponent, PropType, ref, watchEffect } from "vue";
+import { Money } from "../../../shared/Money";
 import s from "./Bars.module.scss";
 
 export const Bars = defineComponent({
@@ -46,7 +47,7 @@ export const Bars = defineComponent({
                     {" "}
                     {tag.name} - {percent}{" "}
                   </span>
-                  <span> ￥{amount} </span>
+                  <span> ￥{<Money value={amount}/>} </span>
                 </div>
                 <div class={s.bar}>
                   <div class={s.bar_inner} style={{width:`${percent}`}}></div>

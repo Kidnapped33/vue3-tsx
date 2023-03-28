@@ -165,3 +165,26 @@ export const staticMenu = async (params: staticMenuData) => {
     params,
   });
 };
+
+/**
+ * echarts图表数据
+ */
+
+interface echartsData {
+  // 	时间起点
+  happened_after?: string;
+  // 	时间终点
+  happened_before?: string;
+  // 	账目类型
+  kind: string;
+  // 	分组依据
+  group_by: string;
+}
+
+export const getEchartsData = async (params: echartsData) => {
+  return await service({
+    url: "/v1/items/summary",
+    method: "get",
+    params,
+  });
+};

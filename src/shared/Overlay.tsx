@@ -26,7 +26,6 @@ export const Overlay = defineComponent({
      
     // };
     const route = useRoute()
-    onMounted(() => { console.log('用户信息',{'token---':currentToken.value})});
     return () => (
       <>
         <div class={s.mask} onClick={close}></div>
@@ -52,10 +51,10 @@ export const Overlay = defineComponent({
                 </RouterLink>
               </li>
               <li>
-                <RouterLink to="" class={s.action}>
+                {/* <RouterLink to="" class={s.action}>
                   <Icon name="export" class={s.icon} />
                   <span>导出数据</span>
-                </RouterLink>
+                </RouterLink> */}
               </li>
               {/* <li>
                 <RouterLink to="" class={s.action}>

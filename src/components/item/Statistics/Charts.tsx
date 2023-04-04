@@ -29,8 +29,9 @@ export const Charts = defineComponent({
     const category = ref("expenses");
 
     const pieBarsData = ref<[]>([])
+    const lineData = ref<[]>([])
 
-    const getData =async () => {
+    const getPieBarsData =async () => {
       const data = {
         happened_after: props.startTime,
         // 	时间终点
@@ -41,13 +42,26 @@ export const Charts = defineComponent({
         group_by: "tag_id"
       }
       const res = await getEchartsData(data)
-      console.log('res',res.data)
       pieBarsData.value = res.data.groups
-      console.log('pieBarsData.value',pieBarsData.value)
+    }
+
+    const getLineData = async () => {
+      const data = {
+        happened_after: props.startTime,
+        // 	时间终点
+        happened_before: props.endTime,
+        // 	账目类型
+        kind: category.value,
+        // 	分组依据
+        group_by: "happen_at"
+      }
+      const res = await getEchartsData(data)
+      lineData.value= res.data.groups
     }
 
     onMounted(()=>{
-      getData()
+      getPieBarsData()
+      getLineData()
     })
     return () => (
       <>
@@ -61,7 +75,7 @@ export const Charts = defineComponent({
           v-model={category.value}
         /> */}
         <div class={s.wrapper}>
-          <LineChart />
+          <LineChart data={lineData.value}/>
           <PieChart data={pieBarsData.value}/>
           <Bars data={pieBarsData.value}/>
         </div>

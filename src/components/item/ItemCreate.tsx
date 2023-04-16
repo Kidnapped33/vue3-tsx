@@ -47,8 +47,6 @@ export const ItemCreate = defineComponent({
     });
 
     enum RefKind {
-      // expenses = "expenses", // 支出
-      // income = "income", // 收入
       expenses = "支出", // 支出
       income = "收入", // 收入
     }
@@ -61,7 +59,6 @@ export const ItemCreate = defineComponent({
     });
 
     const onSubmit = async () => {
-      // e.preventDefault();
       if (!formData.refTagId){
         return Dialog({
           title: "提示",

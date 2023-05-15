@@ -48,6 +48,8 @@ export const FormItem = defineComponent({
     }
   },
   setup: (props, context) => {
+    /**date  */
+    const currentDate = ref(props.modelValue ? new Date(props.modelValue) :new Date())
     const refDateVisible = ref(false)
     const timer = ref<number>()
     const count = ref<number>(props.countFrom)
@@ -83,7 +85,9 @@ export const FormItem = defineComponent({
               onClick={() => {refDateVisible.value = true}}
               class={[s.formItem, s.input]}/>
               <Popup position="bottom" v-model:show={refDateVisible.value}>
-                <DatetimePicker value={props.modelValue} type='date' title='选择年月日'
+                <DatetimePicker 
+                 v-model={currentDate.value}
+                 type='date' title='选择年月日'
                  onConfirm={(date:Date)=>{
                   context.emit('update:modelValue', new Time(date).format())
                   refDateVisible.value = false

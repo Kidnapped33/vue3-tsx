@@ -55,7 +55,8 @@ export const ItemCreate = defineComponent({
       refKind: RefKind.expenses,
       refTagId: undefined,
       refAmount: 0,
-      refHappenAt: new Date().toISOString(),
+      // refHappenAt: new Date().toISOString(),
+      refHappenAt: new Date(),
     });
 
     const onSubmit = async () => {

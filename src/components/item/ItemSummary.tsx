@@ -6,6 +6,7 @@ import { DateTime } from "../../shared/DateTime";
 import { FloatButton } from "../../shared/FloatButton";
 import { Money } from "../../shared/Money";
 import s from "./ItemSummary.module.scss";
+import { Time } from "../../shared/time";
 
 export const ItemSummary = defineComponent({
   props: {
@@ -31,8 +32,13 @@ export const ItemSummary = defineComponent({
         page: page.value + 1,
       };
       
+      // 获取明天
+      console.log('last ---',data.happened_before,new Time(data.happened_before).getNextDay().format())
+      
       if(!data.happened_after) return 
+      console.log('触发了1')
       const response = await staticMenu(data);
+      console.log('触发了2')
 
       const { resources, pager } = response.data;
       itemList.value.length = 0

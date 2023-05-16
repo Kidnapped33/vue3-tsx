@@ -28,17 +28,17 @@ export const ItemSummary = defineComponent({
 
       const data = {
         happened_after: props.startTime,
-        happened_before: props.endTime,
+        // happened_before: props.endTime,
+        happened_before:new Time(props.endTime).getNextDay().format(),
         page: page.value + 1,
       };
       
       // 获取明天
-      console.log('last ---',data.happened_before,new Time(data.happened_before).getNextDay().format())
+      // console.log('last ---',data.happened_before,new Time(data.happened_before).getNextDay().format())
       
       if(!data.happened_after) return 
-      console.log('触发了1')
+
       const response = await staticMenu(data);
-      console.log('触发了2')
 
       const { resources, pager } = response.data;
       itemList.value.length = 0

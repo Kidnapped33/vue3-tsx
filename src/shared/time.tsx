@@ -76,8 +76,11 @@ export class Time {
   firstDayOfYear() {
     return new Time(new Date(this.date.getFullYear(), 0, 1, 0, 0, 0));
   }
+  // lastDayOfYear() {
+  //   return new Time(new Date(this.date.getFullYear() + 1, 0, 1, 0, 0, 0));
+  // }
   lastDayOfYear() {
-    return new Time(new Date(this.date.getFullYear() + 1, 0, 1, 0, 0, 0));
+    return new Time(new Date(this.date.getFullYear() + 1, 0, 0, 0, 0, 0));
   }
   getNextDay() {
     const nextDate = new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate() + 1, 0, 0, 0);

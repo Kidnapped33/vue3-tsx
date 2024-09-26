@@ -42,7 +42,10 @@ export const useSwipe = (element: Ref<HTMLElement | undefined>) => {
 
   onMounted(() => {
     if (!element.value) { return }
-    element.value.addEventListener('touchstart', onStart)
+
+    /**Added non-passive event listener to a scroll-blocking 'touchstart' event. Consider marking event handler as 'passive' to make the page more responsive  */
+    element.value.addEventListener('touchstart', onStart,{passive: true})
+    // element.value.addEventListener('touchstart', onStart)
     element.value.addEventListener('touchmove', onMove)
     element.value.addEventListener('touchend', onEnd)
   })

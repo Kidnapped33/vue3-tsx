@@ -15,7 +15,6 @@ import s from "./Welcome.module.scss";
 // import { useSwipe } from "@vueuse/core";
 import { useSwipe } from "../hooks/useSwipe";
 import { defineComponent, ref, Transition, VNode, watchEffect } from "vue";
-import logo from "../assets/icons/watermelon.svg";
 import { RouteLocationNormalizedLoaded, RouterView } from "vue-router";
 
 export const Welcome = defineComponent({
@@ -23,13 +22,15 @@ export const Welcome = defineComponent({
     const main = ref<HTMLElement>();
     const { swiping, direction } = useSwipe(main);
     watchEffect(() => {
-      console.log('watchEffect===================',swiping.value, direction.value);
+      // console.log('watchEffect===================',swiping.value, direction.value);
     });
     return () => (
       <div class={s.wapper}>
         <header>
-          <img src={logo} />
-          <h3>测试用例</h3>
+          <svg style={{width: '100px'}}>
+            <use xlinkHref='#cat1'></use>
+          </svg>
+          <h3>财迷猫</h3>
         </header>
         <main class={s.main} ref={main}>
           <RouterView name="main">

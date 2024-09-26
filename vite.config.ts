@@ -1,6 +1,11 @@
+
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
+import Components from 'unplugin-vue-components/vite';
+import { VantResolver } from 'unplugin-vue-components/resolvers';
+// @ts-nocheck
+import { svgstore } from './src/vite_plugins/svgstore';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -11,5 +16,20 @@ export default defineConfig({
       transformOn: true,
       mergeProps: true,
     }),
+    svgstore(),
+    Components({
+      resolvers: [VantResolver()],
+    }),
   ],
+  // server: {
+  //   // port: 3000,
+  //   https: true,
+  //   proxy: {
+  //     "/": {
+  //       target: "https://121.196.236.94:8080/api",
+  //       changeOrigin: true,
+  //       // rewrite: (path) => path.replace(/^\/api/, ""),
+  //     },
+  //   },
+  // },
 });

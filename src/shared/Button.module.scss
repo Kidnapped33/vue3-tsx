@@ -1,10 +1,22 @@
-button {
-  border: 1px solid var(--button-bg);
+.button {
   padding: 8px 16px;
-  background-color: var(--button-bg);
   color: var(--button-text);
-  width: 100%;
+  border: none;
   border-radius: var(--button-radius);
   font-size: var(--button-fontSize);
   height: var(--button-height);
+  &[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  &.normal{
+    // background-color: var(--button-bg);
+  }
+  &.important{
+    background-color: var(--button-bg);
+  }
+  &.danger{
+    background-color: var(--button-bg-danger);
+    border-color:var(--button-bg-danger);
+  }
 }
